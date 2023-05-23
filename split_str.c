@@ -12,15 +12,15 @@ char **split_str(char *str)
 	char **command = NULL, *arg, *strp = strdup(str);
 	int len, i;
 
-	arg = strtok(strp, " ");
+	arg = _strtok(strp, " ");
 	if (arg != NULL && *arg != '#')
 		len = 1;
 
-	while (((arg = strtok(NULL, " ")) != NULL && *arg != '#'))
+	while (((arg = _strtok(NULL, " ")) != NULL && *arg != '#'))
 		len++;
 	free(strp);
 
-	arg = strtok(str, " ");
+	arg = _strtok(str, " ");
 	if (arg && *arg != '#')
 	{
 		command = malloc(sizeof(char *) * (len + 1));
@@ -38,7 +38,7 @@ char **split_str(char *str)
 				}
 			strcpy(command[i], arg);
 			i++;
-			arg = strtok(NULL, " ");
+			arg = _strtok(NULL, " ");
 		}
 		command[i] = NULL;
 	}

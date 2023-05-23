@@ -8,16 +8,16 @@
 void prompt(char **buf)
 {
 	int is_atty = isatty(STDIN_FILENO);
+	size_t buf_size = 30;
 
 	if (is_atty)
 		printf("#cisfun$ ");
-	if (fgets(*buf, 1024, stdin) == NULL)
+	if (_getline(buf, &buf_size, stdin) == -1)
 	{
 		if (feof(stdin))
 		{
 			if (is_atty)
 				printf("\n");
-			free(*buf);
 			exit(EXIT_SUCCESS);
 		}
 

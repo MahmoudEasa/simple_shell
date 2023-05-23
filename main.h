@@ -12,7 +12,25 @@
 #include <fcntl.h>
 #include <errno.h>
 
+/**
+ * struct list_s - struct for saving strings
+ * @string: pointer to string
+ * @next: pointer to next node
+ * 
+ * Description: struct for saving strings
+*/
+
+typedef struct list_s
+{
+	char *string;
+	struct list_s *next;
+} list_t;
+
+char *_strtok(char str[], const char *delims);
+void add_str(list_t **head, const char*str);
+char *get_next_node(list_t **current_node);
 void prompt(char **buf);
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 void exe(char **args, char **env);
 char **split_str(char *str);
 void _free(char **cmd);
