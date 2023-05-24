@@ -11,18 +11,12 @@ void prompt(char **buf)
 	size_t buf_size = 30;
 
 	if (is_atty)
-		printf("#cisfun$ ");
+		write(STDIN_FILENO, " ($) ", 5);
 	if (_getline(buf, &buf_size, stdin) == -1)
 	{
-		if (feof(stdin))
-		{
-			if (is_atty)
-				printf("\n");
-			exit(EXIT_SUCCESS);
-		}
-
-		perror("Error ");
-		*buf = NULL;
+		if (is_atty)
+			write(STDIN_FILENO, "\n", 1);
+		exit(EXIT_SUCCESS);
 	}
 }
 

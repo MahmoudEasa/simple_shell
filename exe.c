@@ -2,17 +2,18 @@
 
 /**
  * exe - execute the program
+ * @arg0: string
  * @args: array of arguments
  * @env: array of environment variables
  */
 
-void exe(char **args, char **env)
+void exe(char *arg0, char **args, char **env)
 {
-	char arg0[30] = "/bin/";
+	char arg[100];
 
-	handle_command(args, &arg0);
-
-	if (execve(arg0, args, env) == -1)
+	strcpy(arg, arg0);
+	free(arg0);
+	if (execve(arg, args, env) == -1)
 		perror(args[0]);
 }
 

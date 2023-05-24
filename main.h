@@ -11,13 +11,16 @@
 #include <limits.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <signal.h>
+
+extern char **environ;
 
 extern char **environ;
 /**
  * struct list_s - struct for saving strings
  * @string: pointer to string
  * @next: pointer to next node
- * 
+ *
  * Description: struct for saving strings
 */
 
@@ -37,22 +40,22 @@ void free_paths(char *old_path, char *new_path);
 int _setenv(const char *var_name, const char *new_value, int flag);
 int _strcmp(char *s1,const char *s2, int len);
 char *_strtok(char str[], const char *delims);
-void add_str(list_t **head, const char*str);
+void add_str(list_t **head, const char *str);
 char *get_next_node(list_t **current_node);
 void prompt(char **buf);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
-void exe(char **args, char **env);
-char **split_str(char *str);
+void exe(char *arg0, char **args, char **env);
+char **split_str(char *str, char *tok);
 void _free(char **cmd);
 void print_env(char **env);
 char *allocate(char c, int size);
 void run_fork(char **command, char **av, char **env);
 void exit_p(char **command);
-void print_pid();
-void print_ppid();
-void check_echo(char **command, pid_t child);
-void handle_command(char **command, char (*arg0)[30]);
+void check_echo(char **command, pid_t child, char *arg0);
+char *handle_command(char **command);
 void free_exit(char **command, int is_arr);
+void ctrl_c(int signals);
+void print_error(char **av, char **command, char *arg0);
 
 #endif /* #ifdef MAIN_H */
 

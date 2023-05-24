@@ -16,7 +16,7 @@ char *_strtok(char *str, const char *delims)
 
 	if (str)
 	{
-		str_copy = str;
+		str_copy = strdup(str);
 		i = 0;
 	}
 	if (!str_copy || !str_copy[i])
@@ -37,5 +37,7 @@ char *_strtok(char *str, const char *delims)
 		else if (!string)
 			string = &str_copy[i];
 	}
+	if (!string)
+		free(str_copy);
 	return (string);
 }
