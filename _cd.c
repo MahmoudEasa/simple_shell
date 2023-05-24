@@ -7,6 +7,7 @@ void _chdir(char **path)
 {
 	char *old_path, *new_path, *str;
 
+	str = path[1];
 	old_path = malloc(sizeof(char) * 1024);
 	if (!old_path)
 		handle_error("old_path");
@@ -18,16 +19,16 @@ void _chdir(char **path)
 		free_paths(old_path, new_path);
 		handle_error("getcwd");
 	}
-		if (!path[1])
-			str = check_path(&path[1], old_path, new_path, "HOME");
-		else if (strcmp(path[1], "-") == 0)
-			str = check_path(&path[1], old_path, new_path, "OLDPWD");
-		if (chdir(str) == -1)
-			free_paths(old_path, new_path);
-		if (getcwd(new_path, 1024) == NULL)
-			free_paths(old_path, new_path);
-		update_pwd(old_path, new_path);
+	if (!path[1])
+		str = check_path(&path[1], old_path, new_path, "HOME");
+	else if (strcmp(path[1], "-") == 0)
+		str = check_path(&path[1], old_path, new_path, "OLDPWD");
+	if (chdir(str) == -1)
 		free_paths(old_path, new_path);
+	if (getcwd(new_path, 1024) == NULL)
+		free_paths(old_path, new_path);
+	update_pwd(old_path, new_path);
+	free_paths(old_path, new_path);
 }
 
 /**
