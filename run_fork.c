@@ -28,16 +28,7 @@ void run_fork(char **command, char **av, char **env)
 			perror("Error ");
 		if (pid == 0)
 		{
-			if (strcmp(arg0, "/usr/bin/echo") == 0 && command[1])
-			{
-				free(arg0);
-				check_echo(command, pid);
-			}
-			else if (strcmp(arg0, "/usr/bin/echo") == 0)
-			{
-				free(arg0);
-				free_exit(command, 1);
-			}
+			check_echo(command, pid, arg0);
 			exe(arg0, command, env);
 		}
 		else
@@ -76,26 +67,40 @@ void print_error(char **av, char **command, char *arg0)
  * check_echo - check echo $
  * @command: array of arguments
  * @child: PID or PPID
+ * @arg0: string
  */
 
-void check_echo(char **command, pid_t child)
+void check_echo(char **command, pid_t child, char *arg0)
 {
 	int len, i;
 
-	if (strcmp(command[1], "$?") == 0)
+	if (strcmp(arg0, "/usr/bin/echo") == 0 && command[1])
 	{
-		printf("%u\n", child);
-		free_exit(command, 1);
-	}
-	else if (strcmp(command[1], "$$") == 0)
-		free_exit(command, 1);
-	else if (command[1][0] == '$')
-	{
-		len = strlen(command[1]);
-		for (i = 0; i <= len; i++)
-			command[1][i] = command[1][i + 1];
+		if (strcmp(command[1], "$?") == 0)
+		{
+			free(arg0);
+			printf("%u\n", child);
+			free_exit(command, 1);
+		}
+		else if (strcmp(command[1], "$$") == 0)
+		{
+			free(arg0);
+			free_exit(command, 1);
+		}
+		else if (command[1][0] == '$')
+		{
+			free(arg0);
+			len = strlen(command[1]);
+			for (i = 0; i <= len; i++)
+				command[1][i] = command[1][i + 1];
 
-		printf("%s\n", getenv(command[1]));
+			printf("%s\n", getenv(command[1]));
+			free_exit(command, 1);
+		}
+	}
+	else if (strcmp(arg0, "/usr/bin/echo") == 0)
+	{
+		free(arg0);
 		free_exit(command, 1);
 	}
 }
@@ -114,7 +119,9 @@ char *handle_command(char **command)
 	int i = 0;
 
 	if (stat(command[0], &st) == 0)
+	{
 		return (command[0]);
+	}
 	else
 	{
 		path = getenv("PATH");

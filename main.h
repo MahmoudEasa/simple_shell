@@ -41,7 +41,7 @@ void print_env(char **env);
 char *allocate(char c, int size);
 void run_fork(char **command, char **av, char **env);
 void exit_p(char **command);
-void check_echo(char **command, pid_t child);
+void check_echo(char **command, pid_t child, char *arg0);
 char *handle_command(char **command);
 void free_exit(char **command, int is_arr);
 void ctrl_c(int signals);
