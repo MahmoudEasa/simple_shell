@@ -23,6 +23,7 @@ int main(int ac, char **av, char **env)
 		if (!command)
 			exit(EXIT_FAILURE);
 		prompt(&command);
+		signal(SIGINT, ctrl_c);
 		if (strcmp(command, "clear") == 0)
 		{
 			free(command);
@@ -50,3 +51,13 @@ int main(int ac, char **av, char **env)
 	return (0);
 }
 
+/**
+ * ctrl_c - A function to handle Ctr + C signal.
+ * @signals: The signal to handle.
+ */
+
+void ctrl_c(int signals)
+{
+	(void)signals;
+	write(STDOUT_FILENO, "\n($)", 13);
+}

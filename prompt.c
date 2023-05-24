@@ -11,18 +11,12 @@ void prompt(char **buf)
 	size_t buf_size = 30;
 
 	if (is_atty)
-		printf(" ($) ");
+		printf("($) ");
 	if (_getline(buf, &buf_size, stdin) == -1)
 	{
-		if (feof(stdin))
-		{
-			if (is_atty)
-				printf("\n");
-			exit(EXIT_SUCCESS);
-		}
-
-		perror("Error ");
-		*buf = NULL;
+		if (is_atty)
+			printf("\n");
+		exit(EXIT_SUCCESS);
 	}
 }
 
