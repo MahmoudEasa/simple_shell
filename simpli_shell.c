@@ -59,5 +59,5 @@ int main(int ac, char **av, char **env)
 void ctrl_c(int signals)
 {
 	(void)signals;
-	write(STDOUT_FILENO, "\n($)", 13);
+	write(STDOUT_FILENO, "\n($)", 6);
 }

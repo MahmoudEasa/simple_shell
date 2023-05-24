@@ -41,7 +41,12 @@ void run_fork(char **command, char **av, char **env)
 		}
 	}
 	else
-		perror(av[0]);
+	{
+		write(STDERR_FILENO, av[0], strlen(av[0]));
+		write(STDERR_FILENO, ": 1: ", 5);
+		write(STDERR_FILENO, command[0], strlen(command[0]));
+		write(STDERR_FILENO, ": not found\n", 13);
+	}
 }
 
 /**
