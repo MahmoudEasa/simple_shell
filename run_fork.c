@@ -21,7 +21,7 @@ void run_fork(char **command, char **av, char **env)
 		exit_p(command);
 	}
 	else if (strcmp(command[0], "cd") == 0)
-  		_chdir(command);
+		_chdir(command);
 	else if (stat(arg0, &st) == 0)
 	{
 		pid = fork();
@@ -44,7 +44,6 @@ void run_fork(char **command, char **av, char **env)
 				}
 		}
 	}
-	}	
 	else
 		print_error(av, command, arg0);
 }
