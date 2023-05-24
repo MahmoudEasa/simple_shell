@@ -12,44 +12,27 @@ void run_fork(char **command, char **av, char **env)
 	struct stat st;
 	pid_t pid;
 	int status;
-<<<<<<< HEAD
-	char arg0[30] = "/bin/";
-	
-	(void)env;
-	handle_command(command, &arg0);
-	if (strcmp(arg0, "/bin/exit") == 0)
-=======
 	char *arg0;
 
 	arg0 = handle_command(command);
 	if (strcmp(command[0], "exit") == 0)
 	{
 		free(arg0);
->>>>>>> 78d90883ed58f78810669b0171bff3f6b8a9d60f
 		exit_p(command);
 	}
 
-	else if (strcmp(arg0, "/bin/cd") == 0)
+	else if (strcmp(command[0], "cd") == 0)
   		_chdir(command);
 
 	else if (stat(arg0, &st) == 0)
-		{
+	{
 		pid = fork();
 		if (pid == -1)
 			perror("Error ");
 		if (pid == 0)
 		{
-<<<<<<< HEAD
-			printf("---> %s ------ %s \n", command[0] , command[1]);
-			if (strcmp(arg0, "/bin/echo") == 0 && command[1])
-				check_echo(command, pid);
-			else if (strcmp(arg0, "/bin/echo") == 0)
-				free_exit(command, 1);
-			exe(command, env);
-=======
 			check_echo(command, pid, arg0);
 			exe(arg0, command, env);
->>>>>>> 78d90883ed58f78810669b0171bff3f6b8a9d60f
 		}
 		else
 		{
@@ -60,12 +43,9 @@ void run_fork(char **command, char **av, char **env)
 				{
 					free(arg0);
 					printf("%u\n", getppid());
-<<<<<<< HEAD
-			}
-=======
 				}
->>>>>>> 78d90883ed58f78810669b0171bff3f6b8a9d60f
 		}
+	}
 	else
 		print_error(av, command, arg0);
 }
