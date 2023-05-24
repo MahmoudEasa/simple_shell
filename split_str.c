@@ -3,24 +3,25 @@
 /**
  * split_str - split string
  * @str: string
+ * @tok: character
  *
  * Return: pointer to array of string
  */
 
-char **split_str(char *str)
+char **split_str(char *str, char *tok)
 {
 	char **command = NULL, *arg, *strp = strdup(str);
 	int len, i;
 
-	arg = _strtok(strp, " ");
+	arg = _strtok(strp, tok);
 	if (arg != NULL && *arg != '#')
 		len = 1;
 
-	while (((arg = _strtok(NULL, " ")) != NULL && *arg != '#'))
+	while (((arg = _strtok(NULL, tok)) != NULL && *arg != '#'))
 		len++;
 	free(strp);
 
-	arg = _strtok(str, " ");
+	arg = _strtok(str, tok);
 	if (arg && *arg != '#')
 	{
 		command = malloc(sizeof(char *) * (len + 1));
@@ -38,7 +39,7 @@ char **split_str(char *str)
 				}
 			strcpy(command[i], arg);
 			i++;
-			arg = _strtok(NULL, " ");
+			arg = _strtok(NULL, tok);
 		}
 		command[i] = NULL;
 	}

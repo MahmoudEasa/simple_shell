@@ -40,7 +40,7 @@ int main(int ac, char **av, char **env)
 		{
 			len = strlen(command);
 			command[len - 1] = '\0';
-			args = split_str(command);
+			args = split_str(command, " ");
 			free(command);
 			if (!args)
 				continue;
@@ -59,5 +59,5 @@ int main(int ac, char **av, char **env)
 void ctrl_c(int signals)
 {
 	(void)signals;
-	write(STDOUT_FILENO, "\n ($)", 7);
+	write(STDOUT_FILENO, "\n ($) ", 6);
 }

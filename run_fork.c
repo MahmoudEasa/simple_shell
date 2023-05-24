@@ -12,11 +12,14 @@ void run_fork(char **command, char **av, char **env)
 	struct stat st;
 	pid_t pid;
 	int status;
-	char arg0[30] = "/bin/";
+	char *arg0;
 
-	handle_command(command, &arg0);
-	if (strcmp(arg0, "/bin/exit") == 0)
+	arg0 = handle_command(command);
+	if (strcmp(command[0], "exit") == 0)
+	{
+		free(arg0);
 		exit_p(command);
+	}
 
 	if (stat(arg0, &st) == 0)
 	{
@@ -25,28 +28,48 @@ void run_fork(char **command, char **av, char **env)
 			perror("Error ");
 		if (pid == 0)
 		{
-			if (strcmp(arg0, "/bin/echo") == 0 && command[1])
+			if (strcmp(arg0, "/usr/bin/echo") == 0 && command[1])
+			{
+				free(arg0);
 				check_echo(command, pid);
-			else if (strcmp(arg0, "/bin/echo") == 0)
+			}
+			else if (strcmp(arg0, "/usr/bin/echo") == 0)
+			{
+				free(arg0);
 				free_exit(command, 1);
-			exe(command, env);
+			}
+			exe(arg0, command, env);
 		}
 		else
 		{
-			wait(&status);
+			waitpid(pid, &status, 0);
 			if (command[1])
-				if (strcmp(arg0, "/bin/echo") == 0
+				if (strcmp(arg0, "/usr/bin/echo") == 0
 					&& strcmp(command[1], "$$") == 0)
+				{
+					free(arg0);
 					printf("%u\n", getppid());
+				}
 		}
 	}
 	else
-	{
-		write(STDERR_FILENO, av[0], strlen(av[0]));
-		write(STDERR_FILENO, ": 1: ", 5);
-		write(STDERR_FILENO, command[0], strlen(command[0]));
-		write(STDERR_FILENO, ": not found\n", 13);
-	}
+		print_error(av, command, arg0);
+}
+
+/**
+ * print_error - print error
+ * @av: array
+ * @command: array
+ * @arg0: string
+ */
+
+void print_error(char **av, char **command, char *arg0)
+{
+	free(arg0);
+	write(STDERR_FILENO, av[0], strlen(av[0]));
+	write(STDERR_FILENO, ": 1: ", 5);
+	write(STDERR_FILENO, command[0], strlen(command[0]));
+	write(STDERR_FILENO, ": not found\n", 13);
 }
 
 /**
@@ -80,15 +103,42 @@ void check_echo(char **command, pid_t child)
 /**
  * handle_command - Handle The Path of command
  * @command: array of arguments
- * @arg0: array of "/bin/"
+ *
+ * Return: pointer to command
  */
 
-void handle_command(char **command, char (*arg0)[30])
+char *handle_command(char **command)
 {
-	if (*command[0] != '/' && (*command[0] != '.' && command[0][1] != '/'))
-		strcat(*arg0, command[0]);
+	char *path, **paths, *com;
+	struct stat st;
+	int i = 0;
+
+	if (stat(command[0], &st) == 0)
+		return (command[0]);
 	else
-		strcpy(*arg0, command[0]);
+	{
+		path = getenv("PATH");
+		paths = split_str(path, ":");
+		while (paths[i])
+		{
+			com = malloc(sizeof(char) * (strlen(paths[i])
+						+ strlen(command[0]) + 1));
+			strcpy(com, paths[i]);
+			strcat(com, "/");
+			strcat(com, command[0]);
+			if (stat(com, &st) == 0)
+			{
+				_free(paths);
+				return (com);
+			}
+			else
+				free(com);
+			i++;
+		}
+
+		_free(paths);
+	}
+	return (NULL);
 }
 
 /**
