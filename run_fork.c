@@ -13,18 +13,23 @@ void run_fork(char **command, char **av, char **env)
 	pid_t pid;
 	int status;
 	char arg0[30] = "/bin/";
-
+	
+	(void)env;
 	handle_command(command, &arg0);
 	if (strcmp(arg0, "/bin/exit") == 0)
 		exit_p(command);
 
-	if (stat(arg0, &st) == 0)
-	{
+	else if (strcmp(arg0, "/bin/cd") == 0)
+  		_chdir(command);
+
+	else if (stat(arg0, &st) == 0)
+		{
 		pid = fork();
 		if (pid == -1)
 			perror("Error ");
 		if (pid == 0)
 		{
+			printf("---> %s ------ %s \n", command[0] , command[1]);
 			if (strcmp(arg0, "/bin/echo") == 0 && command[1])
 				check_echo(command, pid);
 			else if (strcmp(arg0, "/bin/echo") == 0)
@@ -38,8 +43,8 @@ void run_fork(char **command, char **av, char **env)
 				if (strcmp(arg0, "/bin/echo") == 0
 					&& strcmp(command[1], "$$") == 0)
 					printf("%u\n", getppid());
+			}
 		}
-	}
 	else
 		perror(av[0]);
 }
