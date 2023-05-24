@@ -11,7 +11,7 @@ void prompt(char **buf)
 	size_t buf_size = 30;
 
 	if (is_atty)
-		printf("($) ");
+		printf(" ($) ");
 	if (_getline(buf, &buf_size, stdin) == -1)
 	{
 		if (feof(stdin))
