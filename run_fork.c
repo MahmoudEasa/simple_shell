@@ -44,7 +44,6 @@ void run_fork(char **command, char **av, char **env)
 					&& _strcmp_(command[1], "$$") == 0)
 					printf("%u\n", getppid());
 			free(arg0);
-			_free(command);
 		}
 	}
 	else
