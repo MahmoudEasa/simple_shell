@@ -8,7 +8,7 @@
 void prompt(char **buf)
 {
 	int is_atty = isatty(STDIN_FILENO);
-	size_t buf_size = 30;
+	size_t buf_size = 1024;
 
 	if (is_atty)
 		write(STDIN_FILENO, " ($) ", 5);
