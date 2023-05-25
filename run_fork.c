@@ -42,11 +42,9 @@ void run_fork(char **command, char **av, char **env)
 			if (command[1])
 				if (_strcmp_(arg0, "/usr/bin/echo") == 0
 					&& _strcmp_(command[1], "$$") == 0)
-				{
-					free(arg0);
-					_free(command);
 					printf("%u\n", getppid());
-				}
+			free(arg0);
+			_free(command);
 		}
 	}
 	else
@@ -67,9 +65,6 @@ void print_error(char **av, char **command, char *arg0)
 	write(STDERR_FILENO, ": 1: ", 5);
 	write(STDERR_FILENO, command[0], _strlen(command[0]));
 	write(STDERR_FILENO, ": not found\n", 13);
-/*	if (command[1])
-		_free(command);
-*/
 }
 
 /**

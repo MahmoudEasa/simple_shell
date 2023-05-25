@@ -1,5 +1,12 @@
 #include "main.h"
 
+/**
+ * handle_sep - handle sep
+ * @path: string
+ *
+ * Return: int
+ */
+
 int handle_sep(char *path)
 {
 	int status, i;

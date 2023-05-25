@@ -11,64 +11,61 @@
 
 int _setenv_(char *var_name, char *new_value, int flag)
 {
-        char **env = environ;
-        char **new_env, *new_var;
-        int i, len, found = 0, env_count;
+	char **env = environ;
+	char **new_env, *new_var;
+	int i, len, found = 0, env_count;
 
 	len = strlen(var_name);
-        if (flag != 0)
-                 for (i= 0; env[i] != NULL ; i++)
-                 {
-                        if ((_strcmp(env[i], var_name, len) == 0 ) && env[i][len] == '=')
-                        {
-                                found = 1;
-                                new_var = concat(var_name, new_value);
-                                if (new_var == NULL)
-                                {
-                                        perror("Error");
-                                        return (-1);
-                                }
-                                _strcpy(env[i], new_var);
-                                free(new_var);
-                                break;
+	if (flag != 0)
+		for (i = 0; env[i] != NULL ; i++)
+		{
+			if ((_strcmp(env[i], var_name, len) == 0) && env[i][len] == '=')
+			{
+				found = 1;
+				new_var = concat(var_name, new_value);
+				if (new_var == NULL)
+				{
+					perror("Error");
+					return (-1);
+				}
+				_strcpy(env[i], new_var);
+				free(new_var);
+				break;
 			}
 		}
 	if (found == 0)
-        {
-                new_var = concat(var_name, new_value);
-                if (new_var == NULL)
-                {
-                        perror("Error");
-                        return (-1);
-                }
-                env_count = environ_size(env);
-                new_env = malloc(sizeof(char *) * (env_count + 2));
-                if (!new_env)
-                {
-                        perror("Error");
-                        free(new_var);
-                        return (-1);
-                }
-                for (i = 0 ; env[i] ; i++)
-                {
-                        new_env[i] = malloc(strlen(env[i]));
-                        if (!new_env[i])
-                                return (-1);
-                        _strcpy(new_env[i], env[i]);
-                }
-                new_env[i] = malloc(sizeof(char) * strlen(new_var));
-                if (!new_env[i])
-                        return (-1);
-                _strcpy(new_env[i], new_var);
+	{
+		new_var = concat(var_name, new_value);
+		if (new_var == NULL)
+		{
+			perror("Error");
+			return (-1);
+		}
+		env_count = environ_size(env);
+		new_env = malloc(sizeof(char *) * (env_count + 2));
+		if (!new_env)
+		{
+			perror("Error");
+			free(new_var);
+			return (-1);
+		}
+		for (i = 0 ; env[i] ; i++)
+		{
+			new_env[i] = malloc(strlen(env[i]));
+			if (!new_env[i])
+			return (-1);
+			_strcpy(new_env[i], env[i]);
+		}
+		new_env[i] = malloc(sizeof(char) * strlen(new_var));
+		if (!new_env[i])
+			return (-1);
+		_strcpy(new_env[i], new_var);
 		free(new_var);
-                new_env[i + 1] = NULL;
-                environ = new_env;
-        }
-                /*_free(new_env);
-                */
-		 
+		new_env[i + 1] = NULL;
+		environ = new_env;
+	}
 
-        return (0);
+	return (0);
 }
 
 char *concat(char *var_name, char *new_value)

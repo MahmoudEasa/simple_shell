@@ -10,16 +10,16 @@
 
 char *_strtok(char *str, const char *delims)
 {
-	static char *str_copy;
+	static char str_copy[100];
 	static size_t i;
 	char *string = NULL;
 
 	if (str)
 	{
-		str_copy = strdup(str);
+		_strcpy(str_copy, str);
 		i = 0;
 	}
-	if (!str_copy || !str_copy[i])
+	if (!str_copy[i])
 		return (NULL);
 	for (; str_copy[i]; i++)
 	{
@@ -37,7 +37,5 @@ char *_strtok(char *str, const char *delims)
 		else if (!string)
 			string = &str_copy[i];
 	}
-	if (!string)
-		free(str_copy);
 	return (string);
 }

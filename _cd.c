@@ -82,6 +82,7 @@ void update_pwd(char *old_path, char *new_path)
  * free_paths - a function that free paths
  * @old_path: first path freed
  * @new_path: second path freed
+ * @path: array
 */
 
 void free_paths(char *old_path, char *new_path, char **path)
@@ -91,7 +92,6 @@ void free_paths(char *old_path, char *new_path, char **path)
 	free(new_path);
 	if (path)
 		_free(path);
-		
 }
 
 /**
