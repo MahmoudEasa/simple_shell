@@ -1,6 +1,5 @@
 #include "main.h"
 
-
 /**
  * _setenv - a function that set a env variable
  * @var_name: name of variable
@@ -10,15 +9,20 @@
  * Return: on success return 0
 */
 
-int _setenv(const char *var_name, const char *var_value, int flag)
+int _setenv(char *var_name, char *var_value, int flag)
 {
-	int value_len = strlen(var_value);
-	int name_len = strlen(var_name), x;
+	int value_len = _strlen(var_value);
+	int name_len = _strlen(var_name), x;
 	char *env_var = malloc(value_len + name_len + 2);
+
 	if (env_var == NULL)
 		return (-1);
-	sprintf(env_var, "%s=%s", var_name, var_value);
-	if (flag == 0 && (getenv(var_name) != NULL))
+/*	sprintf(env_var, "%s=%s", var_name, var_value);*/
+	_strcpy(env_var, var_name);
+	_strcat(env_var, "=");
+	_strcat(env_var, var_value);
+
+	if (flag == 0 && (_getenv(var_name) != NULL))
 	{
 		free(env_var);
 		return (0);
@@ -34,3 +38,4 @@ int _setenv(const char *var_name, const char *var_value, int flag)
 	}
 	return (0);
 }
+
