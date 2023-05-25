@@ -7,9 +7,10 @@
 
 void print_env(char **env)
 {
-	char **envp = env;
+	char **envp = environ;
+	(void)env;
 
-	while (envp)
+	while (*envp)
 	{
 		printf("%s\n", *envp);
 		envp++;
