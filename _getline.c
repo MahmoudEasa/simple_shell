@@ -1,7 +1,5 @@
 #include "main.h"
 
-void resize_buf(char *buffer, ssize_t r_bytes, ssize_t len, FILE *stream);
-
 /**
  * _getline - a function that read line
  * @lineptr: line pointer
@@ -29,7 +27,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	}
 	if (fgets(buffer, len, stream) != NULL)
 	{
-		r_bytes = strlen(buffer);
+		r_bytes = _strlen(buffer);
 		if (buffer[r_bytes - 1] != '\n')
 			resize_buf(buffer, r_bytes, len, stream);
 		else
@@ -55,6 +53,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
  * @len: length of buffer
  * @stream: a file input
 */
+
 void resize_buf(char *buffer, ssize_t r_bytes, ssize_t len, FILE *stream)
 {
 	while ((r_bytes = len - 1) && buffer[r_bytes - 1] != '\n')
@@ -67,7 +66,7 @@ void resize_buf(char *buffer, ssize_t r_bytes, ssize_t len, FILE *stream)
 			exit(EXIT_FAILURE);
 		}
 		if (fgets(buffer + r_bytes, len - r_bytes, stream) != NULL)
-			r_bytes += strlen(buffer);
+			r_bytes += _strlen(buffer);
 		else
 			break;
 	}

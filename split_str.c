@@ -30,14 +30,14 @@ char **split_str(char *str, char *tok)
 		i = 0;
 		while ((arg && *arg != '#'))
 		{
-			len = strlen(arg);
+			len = _strlen(arg);
 			command[i] = malloc(sizeof(char) * len);
 				if (!command[i])
 				{
 					_free(command);
 					exit(EXIT_FAILURE);
 				}
-			strcpy(command[i], arg);
+			_strcpy(command[i], arg);
 			i++;
 			arg = _strtok(NULL, tok);
 		}

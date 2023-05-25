@@ -30,6 +30,14 @@ typedef struct list_s
 	struct list_s *next;
 } list_t;
 
+int _atoi(char *s);
+char *_getenv(char *name);
+void resize_buf(char *buffer, ssize_t r_bytes, ssize_t len, FILE *stream);
+char *_strcat(char *dest, char *src);
+int _strlen(char *s);
+int _strcmp_(char *s1, char *s2);
+char *_strcpy(char *dest, char *src);
+
 void handle_error(char *path);
 void _chdir(char **path);
 char *check_path(char **path, char *old_path, char *new_old, char *name_var);
@@ -37,8 +45,8 @@ void update_pwd(char *old_path, char *new_path);
 void free_paths(char *old_path, char *new_path);
 void handle_error(char *path);
 void free_paths(char *old_path, char *new_path);
-int _setenv(const char *var_name, const char *new_value, int flag);
-int _strcmp(char *s1,const char *s2, int len);
+int _setenv(char *var_name, char *new_value, int flag);
+int _strcmp(char *s1, char *s2, int len);
 char *_strtok(char str[], const char *delims);
 void add_str(list_t **head, const char *str);
 char *get_next_node(list_t **current_node);

@@ -6,13 +6,13 @@
  * Return: return value
 */
 
-char *_getenv(const char *name)
+char *_getenv(char *name)
 {
 	int i;
 	int len;
 	char *value = NULL;
 
-	len = strlen(name);
+	len = _strlen(name);
 	for (i = 0; *environ[i]; i++)
 	{
 		if (_strcmp(environ[i], name, len) == 0 && environ[i][len] == '=')
@@ -23,3 +23,4 @@ char *_getenv(const char *name)
 	}
 	return (value);
 }
+

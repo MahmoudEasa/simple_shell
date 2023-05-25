@@ -15,12 +15,12 @@ void run_fork(char **command, char **av, char **env)
 	char *arg0;
 
 	arg0 = handle_command(command);
-	if (strcmp(command[0], "exit") == 0)
+	if (_strcmp_(command[0], "exit") == 0)
 	{
 		free(arg0);
 		exit_p(command);
 	}
-	else if (strcmp(command[0], "cd") == 0)
+	else if (_strcmp_(command[0], "cd") == 0)
 		_chdir(command);
 	else if (stat(arg0, &st) == 0)
 	{
@@ -36,8 +36,8 @@ void run_fork(char **command, char **av, char **env)
 		{
 			waitpid(pid, &status, 0);
 			if (command[1])
-				if (strcmp(arg0, "/usr/bin/echo") == 0
-					&& strcmp(command[1], "$$") == 0)
+				if (_strcmp_(arg0, "/usr/bin/echo") == 0
+					&& _strcmp_(command[1], "$$") == 0)
 				{
 					free(arg0);
 					printf("%u\n", getppid());
@@ -58,9 +58,9 @@ void run_fork(char **command, char **av, char **env)
 void print_error(char **av, char **command, char *arg0)
 {
 	free(arg0);
-	write(STDERR_FILENO, av[0], strlen(av[0]));
+	write(STDERR_FILENO, av[0], _strlen(av[0]));
 	write(STDERR_FILENO, ": 1: ", 5);
-	write(STDERR_FILENO, command[0], strlen(command[0]));
+	write(STDERR_FILENO, command[0], _strlen(command[0]));
 	write(STDERR_FILENO, ": not found\n", 13);
 }
 
@@ -75,15 +75,15 @@ void check_echo(char **command, pid_t child, char *arg0)
 {
 	int len, i;
 
-	if (strcmp(arg0, "/usr/bin/echo") == 0 && command[1])
+	if (_strcmp_(arg0, "/usr/bin/echo") == 0 && command[1])
 	{
-		if (strcmp(command[1], "$?") == 0)
+		if (_strcmp_(command[1], "$?") == 0)
 		{
 			free(arg0);
 			printf("%u\n", child);
 			free_exit(command, 1);
 		}
-		else if (strcmp(command[1], "$$") == 0)
+		else if (_strcmp_(command[1], "$$") == 0)
 		{
 			free(arg0);
 			free_exit(command, 1);
@@ -91,15 +91,15 @@ void check_echo(char **command, pid_t child, char *arg0)
 		else if (command[1][0] == '$')
 		{
 			free(arg0);
-			len = strlen(command[1]);
+			len = _strlen(command[1]);
 			for (i = 0; i <= len; i++)
 				command[1][i] = command[1][i + 1];
 
-			printf("%s\n", getenv(command[1]));
+			printf("%s\n", _getenv(command[1]));
 			free_exit(command, 1);
 		}
 	}
-	else if (strcmp(arg0, "/usr/bin/echo") == 0)
+	else if (_strcmp_(arg0, "/usr/bin/echo") == 0)
 	{
 		free(arg0);
 		free_exit(command, 1);
@@ -125,15 +125,15 @@ char *handle_command(char **command)
 	}
 	else
 	{
-		path = getenv("PATH");
+		path = _getenv("PATH");
 		paths = split_str(path, ":");
 		while (paths[i])
 		{
-			com = malloc(sizeof(char) * (strlen(paths[i])
-						+ strlen(command[0]) + 1));
-			strcpy(com, paths[i]);
-			strcat(com, "/");
-			strcat(com, command[0]);
+			com = malloc(sizeof(char) * (_strlen(paths[i])
+						+ _strlen(command[0]) + 1));
+			_strcpy(com, paths[i]);
+			_strcat(com, "/");
+			_strcat(com, command[0]);
 			if (stat(com, &st) == 0)
 			{
 				_free(paths);

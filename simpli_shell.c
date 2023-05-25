@@ -24,12 +24,12 @@ int main(int ac, char **av, char **env)
 			exit(EXIT_FAILURE);
 		prompt(&command);
 		signal(SIGINT, ctrl_c);
-		if (strcmp(command, "clear") == 0)
+		if (_strcmp_(command, "clear") == 0)
 		{
 			free(command);
 			clear();
 		}
-		else if (strcmp(command, "env") == 0)
+		else if (_strcmp_(command, "env") == 0)
 		{
 			free(command);
 			print_env(env);
@@ -38,7 +38,7 @@ int main(int ac, char **av, char **env)
 			free(command);
 		else
 		{
-			len = strlen(command);
+			len = _strlen(command);
 			command[len - 1] = '\0';
 			args = split_str(command, " ");
 			free(command);

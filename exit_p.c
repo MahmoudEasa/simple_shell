@@ -11,7 +11,7 @@ void exit_p(char **command)
 
 	if (command[1])
 	{
-		num = atoi(command[1]);
+		num = _atoi(command[1]);
 		_free(command);
 		exit(num);
 	}
