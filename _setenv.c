@@ -17,7 +17,6 @@ int _setenv(char *var_name, char *var_value, int flag)
 
 	if (env_var == NULL)
 		return (-1);
-/*	sprintf(env_var, "%s=%s", var_name, var_value);*/
 	_strcpy(env_var, var_name);
 	_strcat(env_var, "=");
 	_strcat(env_var, var_value);

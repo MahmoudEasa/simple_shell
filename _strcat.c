@@ -11,7 +11,7 @@
 
 char *_strcat(char *dest, char *src)
 {
-	int src_len = _strlen(src);
+	int src_len = _strlen(src), i, dest_len;
 
 	if (src_len == 0)
 	{
@@ -19,7 +19,7 @@ char *_strcat(char *dest, char *src)
 	}
 	else
 	{
-		int i, dest_len = _strlen(dest);
+		dest_len = _strlen(dest);
 
 		for (i = 0; i <= src_len; i++)
 		{

@@ -32,11 +32,11 @@ char **split_str(char *str, char *tok)
 		{
 			len = _strlen(arg);
 			command[i] = malloc(sizeof(char) * len);
-				if (!command[i])
-				{
-					_free(command);
-					exit(EXIT_FAILURE);
-				}
+			if (!command[i])
+			{
+				_free(command);
+				exit(EXIT_FAILURE);
+			}
 			_strcpy(command[i], arg);
 			i++;
 			arg = _strtok(NULL, tok);

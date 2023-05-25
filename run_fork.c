@@ -26,8 +26,12 @@ void run_fork(char **command, char **av, char **env)
 	{
 		pid = fork();
 		if (pid == -1)
+		{
+			free(arg0);
+			_free(command);
 			perror("Error ");
-		if (pid == 0)
+		}
+		else if (pid == 0)
 		{
 			check_echo(command, pid, arg0);
 			exe(arg0, command, env);
@@ -40,6 +44,7 @@ void run_fork(char **command, char **av, char **env)
 					&& _strcmp_(command[1], "$$") == 0)
 				{
 					free(arg0);
+					_free(command);
 					printf("%u\n", getppid());
 				}
 		}
@@ -62,6 +67,9 @@ void print_error(char **av, char **command, char *arg0)
 	write(STDERR_FILENO, ": 1: ", 5);
 	write(STDERR_FILENO, command[0], _strlen(command[0]));
 	write(STDERR_FILENO, ": not found\n", 13);
+/*	if (command[1])
+		_free(command);
+*/
 }
 
 /**
@@ -115,7 +123,7 @@ void check_echo(char **command, pid_t child, char *arg0)
 
 char *handle_command(char **command)
 {
-	char *path, **paths, *com;
+	char *path, **paths, *cmd;
 	struct stat st;
 	int i = 0;
 
@@ -129,18 +137,18 @@ char *handle_command(char **command)
 		paths = split_str(path, ":");
 		while (paths[i])
 		{
-			com = malloc(sizeof(char) * (_strlen(paths[i])
+			cmd = malloc(sizeof(char) * (_strlen(paths[i])
 						+ _strlen(command[0]) + 1));
-			_strcpy(com, paths[i]);
-			_strcat(com, "/");
-			_strcat(com, command[0]);
-			if (stat(com, &st) == 0)
+			_strcpy(cmd, paths[i]);
+			_strcat(cmd, "/");
+			_strcat(cmd, command[0]);
+			if (stat(cmd, &st) == 0)
 			{
 				_free(paths);
-				return (com);
+				return (cmd);
 			}
 			else
-				free(com);
+				free(cmd);
 			i++;
 		}
 
