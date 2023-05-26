@@ -35,7 +35,7 @@ void handle_error(char *path);
 int _setenv(char *var_name, char *new_value, int flag);
 int _strcmp(char *s1, char *s2, int len);
 char *_strtok(char str[], char *delims);
-void prompt(char **buf);
+void prompt(char **buf, ssize_t fd);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 void exe(char *arg0, char **args, char **env);
 char **split_str(char *str, char *tok);
