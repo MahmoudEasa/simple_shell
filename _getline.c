@@ -55,7 +55,7 @@ void resize_buf(char **buffer, ssize_t *r_bytes, ssize_t len, FILE *stream)
 	while ((*r_bytes = len - 1) && *buffer[*r_bytes - 1] != '\n')
 	{
 		len *= 2;
-		*buffer = realloc(*buffer, len);
+		*buffer = _realloc(*buffer, *r_bytes, len);
 		if (!(*buffer))
 		{
 			free(*buffer);

@@ -1,3 +1,6 @@
+clear
+env
+clear
 ls -l
 /bin/ls -l -h
 /bin/ls -l -h -a

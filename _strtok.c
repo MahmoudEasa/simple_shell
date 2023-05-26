@@ -8,11 +8,12 @@
 */
 
 
-char *_strtok(char *str, const char *delims)
+char *_strtok(char *str, char *delims)
 {
 	static char str_copy[100];
 	static size_t i;
 	char *string = NULL;
+	int j, len = _strlen(delims), found;
 
 	if (str)
 	{
@@ -23,9 +24,17 @@ char *_strtok(char *str, const char *delims)
 		return (NULL);
 	for (; str_copy[i]; i++)
 	{
-		if (str_copy[i] == *delims)
+		found = 0;
+		for (j = 0; j < len; j++)
+			if (str_copy[i] == delims[j])
+			{
+				found = 1;
+				str_copy[i] = '\0';
+				break;
+			}
+
+		if (found)
 		{
-			str_copy[i] = '\0';
 			if (!string)
 				continue;
 			else

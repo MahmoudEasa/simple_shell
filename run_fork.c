@@ -17,7 +17,8 @@ void run_fork(char **command, char **av, char **env)
 	arg0 = handle_command(command);
 	if (_strcmp_(command[0], "exit") == 0)
 	{
-		free(arg0);
+		if (*command[0] != '/')
+			free(arg0);
 		exit_p(command);
 	}
 	else if (_strcmp_(command[0], "cd") == 0)
@@ -27,23 +28,29 @@ void run_fork(char **command, char **av, char **env)
 		pid = fork();
 		if (pid == -1)
 		{
-			free(arg0);
+			if (*command[0] != '/')
+				free(arg0);
 			_free(command);
 			perror("Error ");
 		}
 		else if (pid == 0)
 		{
-			check_echo(command, pid, arg0);
+/*			check_echo(command, pid, arg0);*/
+/*			if (_strcmp_(arg0, "/usr/bin/echo") == 0
+				|| _strcmp_(command[0], "/bin/echo") == 0)
+					exe(, command, env);
+			else*/
 			exe(arg0, command, env);
 		}
 		else
 		{
 			waitpid(pid, &status, 0);
-			if (command[1])
+/*			if (command[1])
 				if (_strcmp_(arg0, "/usr/bin/echo") == 0
 					&& _strcmp_(command[1], "$$") == 0)
-					printf("%u\n", getppid());
-			free(arg0);
+					printf("%u\n", getppid());*/
+			if (*command[0] != '/')
+				free(arg0);
 		}
 	}
 	else
@@ -59,7 +66,8 @@ void run_fork(char **command, char **av, char **env)
 
 void print_error(char **av, char **command, char *arg0)
 {
-	free(arg0);
+	if (*command[0] != '/')
+		free(arg0);
 	write(STDERR_FILENO, av[0], _strlen(av[0]));
 	write(STDERR_FILENO, ": 1: ", 5);
 	write(STDERR_FILENO, command[0], _strlen(command[0]));
