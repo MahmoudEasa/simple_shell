@@ -11,11 +11,11 @@ void prompt(char **buf)
 	size_t buf_size = 1024;
 
 	if (is_atty)
-		write(STDIN_FILENO, " ($) ", 5);
+		write(STDOUT_FILENO, " ($) ", 5);
 	if (_getline(buf, &buf_size, stdin) == -1)
 	{
 		if (is_atty)
-			write(STDIN_FILENO, "\n", 1);
+			write(STDOUT_FILENO, "\n", 1);
 		exit(EXIT_SUCCESS);
 	}
 }

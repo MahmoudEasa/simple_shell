@@ -17,7 +17,8 @@ void run_fork(char **command, char **av, char **env)
 	arg0 = handle_command(command);
 	if (_strcmp_(command[0], "exit") == 0)
 	{
-		free(arg0);
+		if (*command[0] != '/')
+			free(arg0);
 		exit_p(command);
 	}
 	else if (_strcmp_(command[0], "cd") == 0)
@@ -26,22 +27,30 @@ void run_fork(char **command, char **av, char **env)
 	{
 		pid = fork();
 		if (pid == -1)
-			perror("Error ");
-		if (pid == 0)
 		{
-			check_echo(command, pid, arg0);
+			if (*command[0] != '/')
+				free(arg0);
+			_free(command);
+			perror("Error ");
+		}
+		else if (pid == 0)
+		{
+/*			check_echo(command, pid, arg0);*/
+/*			if (_strcmp_(arg0, "/usr/bin/echo") == 0
+				|| _strcmp_(command[0], "/bin/echo") == 0)
+					exe(, command, env);
+			else*/
 			exe(arg0, command, env);
 		}
 		else
 		{
 			waitpid(pid, &status, 0);
-			if (command[1])
+/*			if (command[1])
 				if (_strcmp_(arg0, "/usr/bin/echo") == 0
 					&& _strcmp_(command[1], "$$") == 0)
-				{
-					free(arg0);
-					printf("%u\n", getppid());
-				}
+					printf("%u\n", getppid());*/
+			if (*command[0] != '/')
+				free(arg0);
 		}
 	}
 	else
@@ -57,7 +66,8 @@ void run_fork(char **command, char **av, char **env)
 
 void print_error(char **av, char **command, char *arg0)
 {
-	free(arg0);
+	if (*command[0] != '/')
+		free(arg0);
 	write(STDERR_FILENO, av[0], _strlen(av[0]));
 	write(STDERR_FILENO, ": 1: ", 5);
 	write(STDERR_FILENO, command[0], _strlen(command[0]));
@@ -101,6 +111,7 @@ void check_echo(char **command, pid_t child, char *arg0)
 	}
 	else if (_strcmp_(arg0, "/usr/bin/echo") == 0)
 	{
+		write(STDIN_FILENO, "\n", 1);
 		free(arg0);
 		free_exit(command, 1);
 	}
@@ -115,7 +126,7 @@ void check_echo(char **command, pid_t child, char *arg0)
 
 char *handle_command(char **command)
 {
-	char *path, **paths, *com;
+	char *path, **paths, *cmd;
 	struct stat st;
 	int i = 0;
 
@@ -129,18 +140,18 @@ char *handle_command(char **command)
 		paths = split_str(path, ":");
 		while (paths[i])
 		{
-			com = malloc(sizeof(char) * (_strlen(paths[i])
+			cmd = malloc(sizeof(char) * (_strlen(paths[i])
 						+ _strlen(command[0]) + 1));
-			_strcpy(com, paths[i]);
-			_strcat(com, "/");
-			_strcat(com, command[0]);
-			if (stat(com, &st) == 0)
+			_strcpy(cmd, paths[i]);
+			_strcat(cmd, "/");
+			_strcat(cmd, command[0]);
+			if (stat(cmd, &st) == 0)
 			{
 				_free(paths);
-				return (com);
+				return (cmd);
 			}
 			else
-				free(com);
+				free(cmd);
 			i++;
 		}
 

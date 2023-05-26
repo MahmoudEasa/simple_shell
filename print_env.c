@@ -12,7 +12,8 @@ void print_env(char **env)
 
 	while (*envp)
 	{
-		printf("%s\n", *envp);
+		write(STDOUT_FILENO, *envp, _strlen(*envp));
+		write(STDOUT_FILENO, "\n", 1);
 		envp++;
 	}
 }

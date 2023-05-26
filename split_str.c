@@ -10,9 +10,11 @@
 
 char **split_str(char *str, char *tok)
 {
-	char **command = NULL, *arg, *strp = strdup(str);
+	char **command = NULL, *arg, *strp;
 	int len, i;
 
+	strp = malloc(sizeof(char) * _strlen(str));
+	_strcpy(strp, str);
 	arg = _strtok(strp, tok);
 	if (arg != NULL && *arg != '#')
 		len = 1;
@@ -32,11 +34,11 @@ char **split_str(char *str, char *tok)
 		{
 			len = _strlen(arg);
 			command[i] = malloc(sizeof(char) * len);
-				if (!command[i])
-				{
-					_free(command);
-					exit(EXIT_FAILURE);
-				}
+			if (!command[i])
+			{
+				_free(command);
+				exit(EXIT_FAILURE);
+			}
 			_strcpy(command[i], arg);
 			i++;
 			arg = _strtok(NULL, tok);

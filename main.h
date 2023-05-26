@@ -15,41 +15,25 @@
 
 extern char **environ;
 
-extern char **environ;
-/**
- * struct list_s - struct for saving strings
- * @string: pointer to string
- * @next: pointer to next node
- *
- * Description: struct for saving strings
-*/
-
-typedef struct list_s
-{
-	char *string;
-	struct list_s *next;
-} list_t;
-
 int _atoi(char *s);
 char *_getenv(char *name);
-void resize_buf(char *buffer, ssize_t r_bytes, ssize_t len, FILE *stream);
+void resize_buf(char **buffer, ssize_t *r_bytes, ssize_t len, FILE *stream);
 char *_strcat(char *dest, char *src);
 int _strlen(char *s);
 int _strcmp_(char *s1, char *s2);
 char *_strcpy(char *dest, char *src);
-
+int _setenv_(char *var_name, char *new_value, int flag);
 void handle_error(char *path);
+int environ_size(char **env);
+char *concat(char *var_name, char *new_value);
 void _chdir(char **path);
 char *check_path(char **path, char *old_path, char *new_old, char *name_var);
 void update_pwd(char *old_path, char *new_path);
-void free_paths(char *old_path, char *new_path);
+void free_paths(char *old_path, char *new_path, char **path);
 void handle_error(char *path);
-void free_paths(char *old_path, char *new_path);
 int _setenv(char *var_name, char *new_value, int flag);
 int _strcmp(char *s1, char *s2, int len);
-char *_strtok(char str[], const char *delims);
-void add_str(list_t **head, const char *str);
-char *get_next_node(list_t **current_node);
+char *_strtok(char str[], char *delims);
 void prompt(char **buf);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 void exe(char *arg0, char **args, char **env);

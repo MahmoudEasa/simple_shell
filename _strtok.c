@@ -8,24 +8,33 @@
 */
 
 
-char *_strtok(char *str, const char *delims)
+char *_strtok(char *str, char *delims)
 {
-	static char *str_copy;
+	static char str_copy[100];
 	static size_t i;
 	char *string = NULL;
+	int j, len = _strlen(delims), found;
 
 	if (str)
 	{
-		str_copy = strdup(str);
+		_strcpy(str_copy, str);
 		i = 0;
 	}
-	if (!str_copy || !str_copy[i])
+	if (!str_copy[i])
 		return (NULL);
 	for (; str_copy[i]; i++)
 	{
-		if (str_copy[i] == *delims)
+		found = 0;
+		for (j = 0; j < len; j++)
+			if (str_copy[i] == delims[j])
+			{
+				found = 1;
+				str_copy[i] = '\0';
+				break;
+			}
+
+		if (found)
 		{
-			str_copy[i] = '\0';
 			if (!string)
 				continue;
 			else
@@ -37,7 +46,5 @@ char *_strtok(char *str, const char *delims)
 		else if (!string)
 			string = &str_copy[i];
 	}
-	if (!string)
-		free(str_copy);
 	return (string);
 }

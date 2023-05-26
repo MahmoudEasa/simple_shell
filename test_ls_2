@@ -1,0 +1,5 @@
+ls -l
+/bin/ls -l -h
+/bin/ls -l -h -a
+echo "Mahmoud"
+echo "Lobna :)"

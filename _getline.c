@@ -13,8 +13,6 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	ssize_t r_bytes, len;
 	char *buffer = NULL;
 
-	if (stream == stdin)
-		stream = stdin;
 	if (!lineptr || !n)
 		return (-1);
 	buffer = *lineptr;
@@ -29,10 +27,10 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	{
 		r_bytes = _strlen(buffer);
 		if (buffer[r_bytes - 1] != '\n')
-			resize_buf(buffer, r_bytes, len, stream);
+			resize_buf(&buffer, &r_bytes, len, stream);
 		else
 		{
-			*lineptr = buffer;
+			_strcpy((*lineptr), buffer);
 			return (r_bytes);
 		}
 	}
@@ -41,8 +39,6 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 		free(buffer);
 		return (-1);
 	}
-	if (!buffer)
-		free(buffer);
 	return (-1);
 }
 
@@ -54,20 +50,21 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
  * @stream: a file input
 */
 
-void resize_buf(char *buffer, ssize_t r_bytes, ssize_t len, FILE *stream)
+void resize_buf(char **buffer, ssize_t *r_bytes, ssize_t len, FILE *stream)
 {
-	while ((r_bytes = len - 1) && buffer[r_bytes - 1] != '\n')
+	while ((*r_bytes = len - 1) && *buffer[*r_bytes - 1] != '\n')
 	{
 		len *= 2;
-		buffer = realloc(buffer, len);
-		if (!buffer)
+		*buffer = realloc(*buffer, len);
+		if (!(*buffer))
 		{
-			free(buffer);
+			free(*buffer);
 			exit(EXIT_FAILURE);
 		}
-		if (fgets(buffer + r_bytes, len - r_bytes, stream) != NULL)
-			r_bytes += _strlen(buffer);
+		if (fgets(((*buffer) + (*r_bytes)), (len - (*r_bytes)), stream) != NULL)
+			*r_bytes += _strlen(*buffer);
 		else
 			break;
 	}
 }
+
