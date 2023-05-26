@@ -14,7 +14,7 @@
 int main(int ac, char **av, char **env)
 {
 	char *command = NULL, **args;
-	int len;
+	size_t len;
 	(void)ac;
 
 	while (1)
@@ -39,7 +39,8 @@ int main(int ac, char **av, char **env)
 		else
 		{
 			len = _strlen(command);
-			command[len - 1] = '\0';
+			if (command[len - 1] == '\n')
+				command[len - 1] = '\0';
 			args = split_str(command, " ");
 			free(command);
 			if (!args)
