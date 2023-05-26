@@ -15,6 +15,7 @@
 
 extern char **environ;
 
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 int _atoi(char *s);
 char *_getenv(char *name);
 void resize_buf(char **buffer, ssize_t *r_bytes, ssize_t len, FILE *stream);
