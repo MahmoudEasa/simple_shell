@@ -103,6 +103,7 @@ void check_echo(char **command, pid_t child, char *arg0)
 	}
 	else if (_strcmp_(arg0, "/usr/bin/echo") == 0)
 	{
+		write(STDIN_FILENO, "\n", 1);
 		free(arg0);
 		free_exit(command, 1);
 	}
