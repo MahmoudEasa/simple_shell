@@ -57,7 +57,9 @@ char *check_path(char **path, char *old_path, char *new_path, char *name_var)
 	str = _getenv(name_var);
 	if (str == NULL)
 	{
-		dprintf(STDERR_FILENO, "cd: %s not sets\n", name_var);
+		write(STDERR_FILENO, "cd: ", 4);
+		write(STDERR_FILENO, name_var, _strlen(name_var));
+		write(STDERR_FILENO, " not sets\n", 10);
 		free_paths(old_path, new_path, path);
 		exit(EXIT_FAILURE);
 	}
