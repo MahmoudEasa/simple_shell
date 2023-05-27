@@ -20,7 +20,7 @@ void  exit_p(char **cmd, char *input, char **argv, int c)
 	}
 	while (cmd[1][i])
 	{
-		if (_isalpha(cmd[1][i++]) != 0)
+		if ((_isalpha(cmd[1][i]) != 0) && cmd[1][i] == '-')
 		{
 			_perror(argv, c, cmd);
 			break;
@@ -32,6 +32,7 @@ void  exit_p(char **cmd, char *input, char **argv, int c)
 			free(cmd);
 			exit(statue);
 		}
+		i++;
 	}
 }
 
