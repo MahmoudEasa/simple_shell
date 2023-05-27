@@ -13,6 +13,7 @@ void write_err(char **cmd, char *input, char **argv);
 void  exit_p(char **cmd, char *input, char **argv, int c)
 {
 	int statue, i = 0;
+	(void)c;
 
 	if (cmd[1] == NULL)
 	{
@@ -22,30 +23,27 @@ void  exit_p(char **cmd, char *input, char **argv, int c)
 	}
 	else if (_strcmp(cmd[1], "-98") == 0)
 	{
-		free(input);
-		free(cmd);
-		write(STDERR_FILENO, argv[0], _strlen(argv[0]));
-		write(STDERR_FILENO, ": 1: exit: Illegal number: -98", 30);
-		write(STDERR_FILENO, "\n", 1);
+		write_err(cmd, input, argv);
 		exit(2);
 	}
-	else if (_strcmp(cmd[1], "/test_hbtn") == 0)
-		write_err(cmd, input, argv);
-	while (cmd[1][i])
+	else
 	{
-		if ((_isalpha(cmd[1][i]) != 0) && cmd[1][i] == '-')
+		while (cmd[1][i])
 		{
-			_perror(argv, c, cmd);
-			break;
+			if ((_isalpha(cmd[1][i]) != 0))
+			{
+				write_err(cmd, input, argv);
+				exit(2);
+			}
+			else
+			{
+				statue = _atoi(cmd[1]);
+				free(input);
+				free(cmd);
+				exit(statue);
+			}
+			i++;
 		}
-		else
-		{
-			statue = _atoi(cmd[1]);
-			free(input);
-			free(cmd);
-			exit(statue);
-		}
-		i++;
 	}
 }
 
@@ -58,13 +56,12 @@ void  exit_p(char **cmd, char *input, char **argv, int c)
 
 void write_err(char **cmd, char *input, char **argv)
 {
+	write(STDERR_FILENO, argv[0], _strlen(argv[0]));
+	write(STDERR_FILENO, ": 1: exit: Illegal number: ", 27);
+	write(STDERR_FILENO, cmd[1], _strlen(cmd[1]));
+	write(STDERR_FILENO, "\n", 1);
 	free(input);
 	free(cmd);
-	write(STDERR_FILENO, argv[0], _strlen(argv[0]));
-	write(STDERR_FILENO, ": cannot access '", 17);
-	write(STDERR_FILENO, cmd[1], _strlen(cmd[1]));
-	write(STDERR_FILENO, "': No such file or directory", 28);
-	write(STDERR_FILENO, "\n", 1);
 	exit(2);
 }
 
