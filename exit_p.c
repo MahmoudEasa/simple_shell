@@ -20,6 +20,8 @@ void  exit_p(char **cmd, char *input, char **argv, int c)
 	}
 	if (_strcmp(cmd[1], "-98") == 0)
 	{
+		free(input);
+		free(cmd);
 		write(STDERR_FILENO, argv[0], _strlen(argv[0]));
 		write(STDERR_FILENO, ": 1: exit: Illegal number: -98", 30);
 		write(STDERR_FILENO, "\n", 1);
