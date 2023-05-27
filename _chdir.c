@@ -10,9 +10,12 @@
 
 int _chdir(char **cmd, int er)
 {
+
 	int value = -1;
 	char cwd[PATH_MAX];
 
+	(void)cmd;
+	(void)er;
 	if (cmd[1] == NULL)
 		value = chdir(getenv("HOME"));
 	else if (_strcmp(cmd[1], "-") == 0)
