@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "main.h"
 
 /**
  * print_env - print enviroment variable

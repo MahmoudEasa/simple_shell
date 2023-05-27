@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "main.h"
 
 /**
  * fill_array - fill array

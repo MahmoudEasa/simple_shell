@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "main.h"
 
 /**
  * exe_cmd - excute simple shell
