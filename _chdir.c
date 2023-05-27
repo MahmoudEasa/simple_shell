@@ -17,10 +17,10 @@ int _chdir(char **cmd, int er)
 	(void)cmd;
 	(void)er;
 	if (cmd[1] == NULL)
-		value = chdir(_getenv("HOME"));
+		value = chdir(getenv("HOME"));
 	else if (_strcmp(cmd[1], "-") == 0)
 	{
-		value = chdir(_getenv("OLDPWD"));
+		value = chdir(getenv("OLDPWD"));
 	}
 	else
 		if (cmd[1])
