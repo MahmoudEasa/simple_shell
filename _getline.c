@@ -8,9 +8,9 @@
 
 char *_getline()
 {
-int i, buffsize = BUFSIZE, rd;
-char c = 0;
-char *buff = malloc(buffsize);
+	int i, buffsize = BUFSIZE, rd;
+	char c = 0;
+	char *buff = malloc(buffsize);
 
 	if (buff == NULL)
 	{
@@ -61,8 +61,8 @@ void hashtag_handle(char *buff)
 		{
 			if (buff[i] == '#')
 			{
-			buff[i] = '\0';
-			break;
+				buff[i] = '\0';
+				break;
 			}
 	}
 }
