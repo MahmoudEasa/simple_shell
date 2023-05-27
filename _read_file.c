@@ -24,7 +24,7 @@ void _read_file(char *filename, char **argv)
 		write(STDERR_FILENO, "Can't open ", 11);
 		write(STDERR_FILENO, argv[1], _strlen(argv[1]));
 		write(STDERR_FILENO, "\n", 1);
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 	while ((getline(&line, &len, fp)) != -1)
 	{
