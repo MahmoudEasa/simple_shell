@@ -29,7 +29,6 @@ int main(int argc, char **argv)
 		if (input[0] == '\0')
 			continue;
 
-		handle_history(input);
 		cmd = split_str(input);
 		if (_strcmp(cmd[0], "exit") == 0)
 			exit_p(cmd, input, argv, counter);

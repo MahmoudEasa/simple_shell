@@ -56,7 +56,6 @@ int exe_cmd(char **tokens, char *line, int count, char **argv);
 void treat_file(char *line, int counter, FILE *fd, char **argv);
 void exit_file(char **cmd, char *line, FILE *fd);
 void hashtag_handle(char *buff);
-int handle_history(char *input);
 int his_dis(char **cmd, int er);
 int print_env(char **cmd, int er);
 int _chdir(char **cmd, int er);
