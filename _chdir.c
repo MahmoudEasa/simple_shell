@@ -23,7 +23,8 @@ int _chdir(char **cmd, int er)
 		value = chdir(getenv("OLDPWD"));
 	}
 	else
-		value = chdir(cmd[1]);
+		if (cmd[1])
+			value = chdir(cmd[1]);
 	if (value == -1)
 	{
 		perror("hsh");

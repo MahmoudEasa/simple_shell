@@ -27,7 +27,10 @@ int main(int argc, char **argv)
 
 		input = _getline();
 		if (input[0] == '\0')
+		{
+			free(input);
 			continue;
+		}
 
 		cmd = split_str(input);
 		if (_strcmp(cmd[0], "exit") == 0)
