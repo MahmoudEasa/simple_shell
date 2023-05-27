@@ -9,6 +9,7 @@
 
 int check_buil(char **cmd)
 {
+	int i = 0;
 	bul_t fun[] = {
 		{"cd", NULL},
 		{"help", NULL},
@@ -16,7 +17,7 @@ int check_buil(char **cmd)
 		{"history", NULL},
 		{NULL, NULL}
 	};
-	int i = 0;
+
 	if (*cmd == NULL)
 		return (-1);
 

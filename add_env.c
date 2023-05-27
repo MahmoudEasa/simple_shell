@@ -5,7 +5,7 @@
  * @env: array of enviroment variable
  */
 
-void creat_envi(char **env)
+void add_env(char **env)
 {
 	int i;
 
