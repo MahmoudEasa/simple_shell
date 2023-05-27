@@ -22,6 +22,8 @@ int exe_cmd(char **cmd, char *input, int c, char **argv)
 	if (pid == -1)
 	{
 		perror("Error");
+		free(input);
+		free_env(cmd);
 		return (-1);
 	}
 
@@ -35,12 +37,15 @@ int exe_cmd(char **cmd, char *input, int c, char **argv)
 		{
 			err_print(cmd[0], c, argv);
 			free(input);
-			free(cmd);
+			free_env(cmd);
 			exit(EXIT_FAILURE);
 		}
 		return (EXIT_SUCCESS);
 	}
-	wait(&status);
+	else
+	{
+		wait(&status);
+	}
 	return (0);
 }
 

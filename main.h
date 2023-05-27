@@ -68,6 +68,10 @@ void print_num_int(int num);
 void err_print(char *line, int count, char **av);
 void _perror(char **argv, int c, char **cmd);
 void trt_file(char *line, int counter, FILE *fp, char **argv);
+char *concat(char *var_name, char *new_value);
+int environ_size(char **env);
+int _setenv_(char *var_name, char *new_value, int flag);
+int found_fun(char *var_name, char *new_value);
 /**
  * struct bulltin - contain bultin to handle and function to excute
  * @command:pointer to char

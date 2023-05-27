@@ -17,10 +17,10 @@ int _chdir(char **cmd, int er)
 	(void)cmd;
 	(void)er;
 	if (cmd[1] == NULL)
-		value = chdir(_getenv("HOME"));
+		value = chdir(getenv("HOME"));
 	else if (_strcmp(cmd[1], "-") == 0)
 	{
-		value = chdir(_getenv("OLDPWD"));
+		value = chdir(getenv("OLDPWD"));
 	}
 	else
 		if (cmd[1])
@@ -28,13 +28,14 @@ int _chdir(char **cmd, int er)
 	if (value == -1)
 	{
 		perror("hsh");
+		free_env(cmd);
 		return (-1);
 	}
 	else if (value != -1)
 	{
 		getcwd(cwd, sizeof(cwd));
-		setenv("OLDPWD", getenv("PWD"), 1);
-		setenv("PWD", cwd, 1);
+		_setenv_("OLDPWD", getenv("PWD"), 1);
+		_setenv_("PWD", cwd, 1);
 	}
 	return (0);
 }
