@@ -67,7 +67,7 @@ void print_num(unsigned int num);
 void print_num_int(int num);
 void err_print(char *line, int count, char **av);
 void _perror(char **argv, int c, char **cmd);
-
+void trt_file(char *line, int counter, FILE *fp, char **argv);
 /**
  * struct bulltin - contain bultin to handle and function to excute
  * @command:pointer to char

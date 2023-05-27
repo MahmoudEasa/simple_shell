@@ -1,31 +1,31 @@
 #include "main.h"
 
 /**
- * cmd_path -  a function that find full path in env
+ * path_cmd -  a function that find full path in env
  * @cmd: command line
  * Return: return 1 if failure 0 if success
  */
 int path_cmd(char **cmd)
 {
-	struct stat st;
-	char *p, *value, *cmdpath;
+char *path, *value, *cmd_path;
+	struct stat buf;
 
-	p = _getenv("PATH");
-	value = _strtok(p, ":");
+	path = _getenv("PATH");
+	value = _strtok(path, ":");
 	while (value != NULL)
 	{
-		cmdpath = build_cmd(*cmd, value);
-		if (stat(cmdpath, &st) == 0)
+		cmd_path = build_cmd(*cmd, value);
+		if (stat(cmd_path, &buf) == 0)
 		{
-			*cmd = _strdup(cmdpath);
-			free(cmdpath);
-			free(p);
+			*cmd = _strdup(cmd_path);
+			free(cmd_path);
+			free(path);
 			return (0);
 		}
-		free(cmdpath);
+		free(cmd_path);
 		value = _strtok(NULL, ":");
 	}
-	free(p);
+	free(path);
 
 	return (1);
 }

@@ -9,7 +9,7 @@
  */
 void exit_file(char **cmd, char *line, FILE *fd)
 {
-	int st, i = 0;
+	int statue, i = 0;
 
 	if (cmd[1] == NULL)
 	{
@@ -25,10 +25,12 @@ void exit_file(char **cmd, char *line, FILE *fd)
 			perror("illegal number");
 		}
 	}
-	st = _atoi(cmd[1]);
+	statue = _atoi(cmd[1]);
 	free(line);
 	free(cmd);
 	fclose(fd);
-	exit(st);
+	exit(statue);
+
+
 }
 
