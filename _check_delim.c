@@ -13,10 +13,9 @@ unsigned int _check_delim(char c, const char *str)
 	unsigned int i;
 
 	for (i = 0; str[i] != '\0'; i++)
-	{
 		if (c == str[i])
 			return (1);
-	}
+
 	return (0);
 }
 

@@ -40,6 +40,11 @@ char *_getline()
 		}
 	}
 	buff[i] = '\0';
+	if (buff[0] == '#')
+	{
+		free(buff);
+		return ("\0");
+	}
 	hashtag_handle(buff);
 	return (buff);
 }

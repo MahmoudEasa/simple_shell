@@ -7,6 +7,7 @@
  * @fd: file descriptor
  *
  */
+
 void exit_file(char **cmd, char *line, FILE *fd)
 {
 	int statue, i = 0;
@@ -21,16 +22,12 @@ void exit_file(char **cmd, char *line, FILE *fd)
 	while (cmd[1][i])
 	{
 		if (_isalpha(cmd[1][i++]) < 0)
-		{
 			perror("illegal number");
-		}
 	}
 	statue = _atoi(cmd[1]);
 	free(line);
 	free(cmd);
 	fclose(fd);
 	exit(statue);
-
-
 }
 

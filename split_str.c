@@ -24,11 +24,11 @@ char **split_str(char *input)
 		return (NULL);
 	}
 
-	token = _strtok(input, "\n ");
+	token = _strtok(input, "\n\t ");
 	for (i = 0; token; i++)
 	{
 		tokens[i] = token;
-		token = _strtok(NULL, "\n ");
+		token = _strtok(NULL, "\n\t ");
 	}
 	tokens[i] = NULL;
 
