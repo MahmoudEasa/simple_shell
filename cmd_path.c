@@ -5,7 +5,7 @@
  * @cmd: command line
  * Return: return 1 if failure 0 if success
  */
-int cmd_path(char **cmd)
+int path_cmd(char **cmd)
 {
 	struct stat st;
 	char *p, *value, *cmdpath;
