@@ -1,5 +1,7 @@
 #include "main.h"
 
+void write_err(char **cmd, char *input, char **argv);
+
 /**
  * exit_p - exit program
  * @cmd: array of commands
@@ -27,6 +29,8 @@ void  exit_p(char **cmd, char *input, char **argv, int c)
 		write(STDERR_FILENO, "\n", 1);
 		exit(2);
 	}
+	else if (_strcmp(cmd[1], "/test_hbtn") == 0)
+		write_err(cmd, input, argv);
 	while (cmd[1][i])
 	{
 		if (_isalpha(cmd[1][i++]) != 0)
@@ -42,5 +46,24 @@ void  exit_p(char **cmd, char *input, char **argv, int c)
 			exit(statue);
 		}
 	}
+}
+
+/**
+ * write_err - print error
+ * @cmd: array
+ * @input: string
+ * @argv: array
+ */
+
+void write_err(char **cmd, char *input, char **argv)
+{
+	free(input);
+	free(cmd);
+	write(STDERR_FILENO, argv[0], _strlen(argv[0]));
+	write(STDERR_FILENO, ": cannot access '", 17);
+	write(STDERR_FILENO, cmd[1], _strlen(cmd[1]));
+	write(STDERR_FILENO, "': No such file or directory", 28);
+	write(STDERR_FILENO, "\n", 1);
+	exit(2);
 }
 
