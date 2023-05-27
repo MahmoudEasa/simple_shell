@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 	if (argv[1] != NULL)
 		read_file(argv[1], argv);
 
-	signal(SIGINT, signal_to_handel);
+	signal(SIGINT, ctrl_c);
 
 	while (statue)
 	{
@@ -29,19 +29,19 @@ int main(int argc, char **argv)
 		if (input[0] == '\0')
 			continue;
 
-		history(input);
-		cmd = parse_cmd(input);
+		ndle_history(input);
+		cmd = split_str(input);
 		if (_strcmp(cmd[0], "exit") == 0)
-			exit_bul(cmd, input, argv, counter);
-		else if (check_builtin(cmd) == 0)
+			exit_p(cmd, input, argv, counter);
+		else if (check_buil(cmd) == 0)
 		{
-			st = handle_builtin(cmd, st);
-			free_all(cmd, input);
+			st = handle_buil(cmd, st);
+			_free(cmd, input);
 			continue;
 		}
 		else
-			st = check_cmd(cmd, input, counter, argv);
-		free_all(cmd, input);
+			st = exe_cmd(cmd, input, counter, argv);
+		_free(cmd, input);
 	}
 	return (statue);
 }

@@ -8,8 +8,6 @@
 void ctrl_c(int sig)
 {
 	if (sig == SIGINT)
-	{
 		PRINTER("\n$ ");
-	}
 }
 
