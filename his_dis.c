@@ -18,7 +18,9 @@ int his_dis(char **ch, int st)
 
 	fp = fopen(name_file, "r");
 	if (!fp)
-	return (-1);
+	{
+		return (-1);
+	}
 	while ((getline(&line, &len, fp)) != -1)
 	{
 		count++;
