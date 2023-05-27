@@ -1,26 +1,38 @@
 #include "main.h"
 
 /**
- * _getenv - a function that get env variable
- * @name: input name
- * Return: return value
-*/
-
-char *_getenv(char *name)
+ * _getenv - a function that get a value of name in env
+ * @var_name: name of string in env
+ * Return: return the value if found, else return NULL
+ */
+char *_getenv(char *var_name)
 {
-	int i;
-	int len;
-	char *value = NULL;
+	size_t len_n, len_v;
+	char *value;
+	int i, x, j;
 
-	len = _strlen(name);
-	for (i = 0; *environ[i]; i++)
+	len_n = _strlen(var_name);
+	while (environ[i])
 	{
-		if (_strcmp(environ[i], name, len) == 0 && environ[i][len] == '=')
+		if (_strncmp(var_name, environ[i], len_n) == 0)
 		{
-			value = &environ[i][len + 1];
-			break;
-		}
-	}
-	return (value);
-}
+			len_v = _strlen(environ[i]) - len_n;
+			value = malloc(sizeof(char) * vl);
+			if (!value)
+			{
+				free(value);
+				perror("unable to alloc");
+				return (NULL);
+			}
 
+			j = 0;
+			for (x = len_n + 1; environ[i][x]; x++, j++)
+				value[j] = environ[i][x];
+			value[j] = '\0';
+			return (value);
+		}
+		i++;
+	}
+
+return (NULL);
+}

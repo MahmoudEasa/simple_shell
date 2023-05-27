@@ -1,3 +1,5 @@
+#include "main.h"
+
 /**
  * _atoi - convert a string to an integer
  * @s: (char) Pointer to string
@@ -17,13 +19,11 @@ int _atoi(char *s)
 	{
 		if (num_in_str > 0 && !(s[i] >= (int)'0' && s[i] <= (int)'9'))
 			break;
-
 		if (s[i] == '-')
 			negative++;
 		else if (s[i] >= (int)'0' && s[i] <= (int)'9')
 			num_in_str = (num_in_str * 10) + (s[i] - '0');
 	}
-
 	if (negative % 2 != 0)
 		return (-num_in_str);
 	else

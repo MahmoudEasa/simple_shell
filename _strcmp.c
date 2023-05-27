@@ -1,5 +1,3 @@
-#include "main.h"
-
 /**
  * _strcmp - a function that compare between two strings
  * @s1: first string
@@ -9,7 +7,7 @@
  * Return: on success return 0
 */
 
-int _strcmp(char *s1, char *s2, int len)
+int _strcmp(const char *s1, const char *s2, size_t len)
 {
 	int i = 0;
 
@@ -22,4 +20,3 @@ int _strcmp(char *s1, char *s2, int len)
 	}
 	return (0);
 }
-
