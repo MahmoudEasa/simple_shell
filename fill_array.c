@@ -2,7 +2,7 @@
 
 /**
  * fill_array - fill array
- * @ptr: pointer void
+ * @a: pointer void
  * @el: int
  * @len: unsigned int
  *

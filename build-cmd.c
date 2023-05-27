@@ -10,18 +10,22 @@
 char *build_cmd(char *tk, char *value)
 {
 	char *cmd;
-	size_t length;
+	size_t len;
 
-	length = _strlen(value) + _strlen(tk) + 2;
-	cmd = malloc(sizeof(char) * length);
+	len = _strlen(value) + _strlen(tk) + 2;
+	cmd = malloc(sizeof(char) * len);
 	if (cmd == NULL)
-	return (NULL);
+	{
+		return (NULL);
+	}
 
-	memset(cmd, 0, length);
+	memset(cmd, 0, len);
 
 	cmd = _strcat(cmd, value);
 	cmd = _strcat(cmd, "/");
 	cmd = _strcat(cmd, tk);
 
 	return (cmd);
+
+
 }

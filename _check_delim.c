@@ -2,21 +2,20 @@
 
 /**
  * _check_delim - a function that check delimeters
- * @ch: input character that checked
- * @string: input string that checked
+ * @c: input character that checked
+ * @str: input string that checked
  *
  * Return: return 0 if false 1 if success
 */
 
-unsigned int _check_delim(char ch, const char *string)
+unsigned int _check_delim(char c, const char *str)
 {
-	unsigned int j;
+	unsigned int i;
 
-	while (string[j])
+	for (i = 0; str[i] != '\0'; i++)
 	{
-	if (ch == string[j])
-		return (1);
-	j++;
+		if (c == str[i])
+			return (1);
 	}
 	return (0);
 }

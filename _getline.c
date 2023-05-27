@@ -8,37 +8,43 @@
 
 char *_getline()
 {
-	int i, len = BUFSIZE, r_bytes;
-	char ch = 0, *buffer = malloc(len);
+int i, buffsize = BUFSIZE, rd;
+char c = 0;
+char *buff = malloc(buffsize);
 
-	if (!buffer)
+	if (buff == NULL)
+	{
+		free(buff);
 		return (NULL);
+	}
 
-	for (i = 0; ch != EOF && ch != '\n'; i++)
+	for (i = 0; c != EOF && c != '\n'; i++)
 	{
 		fflush(stdin);
-		r_bytes = read(STDIN_FILENO, &ch, 1);
-		if (r_bytes == 0)
+		rd = read(STDIN_FILENO, &c, 1);
+		if (rd == 0)
 		{
-			free(buffer);
+			free(buff);
 			exit(EXIT_SUCCESS);
 		}
-			buffer[i] = ch;
-			if (buffer[0] == '\n')
+		buff[i] = c;
+		if (buff[0] == '\n')
+		{
+			free(buff);
+			return ("\0");
+		}
+		if (i >= buffsize)
+		{
+			buff = _realloc(buff, buffsize, buffsize + 1);
+			if (buff == NULL)
 			{
-				free(buffer);
-				return ("\0");
+				return (NULL);
 			}
-			if (i >= len)
-			{
-				buffer = _realloc(buffer, len, len + 1);
-				if (!buffer)
-					return (NULL);
-			}
+		}
 	}
-	buffer[i] = '\0';
-	hashtag_handle(buffer);
-	return (buffer);
+	buff[i] = '\0';
+	hashtag_handle(buff);
+	return (buff);
 }
 
 

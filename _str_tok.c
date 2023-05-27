@@ -2,48 +2,47 @@
 
 /**
  * _strtok - a function that parse string to tokens
- * @string: string input
+ * @str: string input
  * @delim: delimeter input
  *
  * Return: return pointer if success , NULL if false
  */
-char *_strtok(char *string, const char *delim)
+char *_strtok(char *str, const char *delim)
 {
-	static char *t_s, *n_t;
+	static char *ts;
+	static char *nt;
 	unsigned int i;
 
-	if (string != NULL)
-		n_t = string;
-	t_s = n_t;
-	if (t_s == NULL)
+	if (str != NULL)
+		nt = str;
+	ts = nt;
+	if (ts == NULL)
 		return (NULL);
-	while (t_s[i])
+	for (i = 0; ts[i] != '\0'; i++)
 	{
-		if (_check_delim(t_s[i], delim) == 0)
+		if (_check_delim(ts[i], delim) == 0)
 			break;
-		i++;
 	}
-	if (n_t[i] == '\0' || n_t[i] == '#')
+	if (nt[i] == '\0' || nt[i] == '#')
 	{
-		n_t = NULL;
+		nt = NULL;
 		return (NULL);
 	}
-	t_s = n_t + i;
-	n_t = t_s;
-	while (n_t[i])
+	ts = nt + i;
+	nt = ts;
+	for (i = 0; nt[i] != '\0'; i++)
 	{
-		if (_check_delim(n_t[i], delim) == 1)
-		break;
-		i++;
+		if (_check_delim(nt[i], delim) == 1)
+			break;
 	}
-	if (n_t[i] == '\0')
-		n_t = NULL;
+	if (nt[i] == '\0')
+		nt = NULL;
 	else
 	{
-		n_t[i] = '\0';
-		n_t = n_t + i + 1;
-		if (*n_t == '\0')
-			n_t = NULL;
+		nt[i] = '\0';
+		nt = nt + i + 1;
+		if (*nt == '\0')
+			nt = NULL;
 	}
-	return (t_s);
+	return (ts);
 }

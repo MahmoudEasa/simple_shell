@@ -2,22 +2,23 @@
 
 /**
  * _getenv - a function that get a value of name in env
- * @var_name: name of string in env
+ * @name: name of string in env
  * Return: return the value if found, else return NULL
  */
-char *_getenv(char *var_name)
+char *_getenv(char *name)
 {
-	size_t len_n, len_v;
+
+size_t nl, vl;
 	char *value;
 	int i, x, j;
 
-	len_n = _strlen(var_name);
-	while (environ[i])
+	nl = _strlen(name);
+	for (i = 0 ; environ[i]; i++)
 	{
-		if (_strncmp(var_name, environ[i], len_n) == 0)
+		if (_strncmp(name, environ[i], nl) == 0)
 		{
-			len_v = _strlen(environ[i]) - len_n;
-			value = malloc(sizeof(char) * len_v);
+			vl = _strlen(environ[i]) - nl;
+			value = malloc(sizeof(char) * vl);
 			if (!value)
 			{
 				free(value);
@@ -26,13 +27,16 @@ char *_getenv(char *var_name)
 			}
 
 			j = 0;
-			for (x = len_n + 1; environ[i][x]; x++, j++)
+			for (x = nl + 1; environ[i][x]; x++, j++)
+			{
 				value[j] = environ[i][x];
+			}
 			value[j] = '\0';
+
 			return (value);
 		}
-		i++;
 	}
 
-return (NULL);
+	return (NULL);
+
 }
