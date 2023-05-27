@@ -28,13 +28,14 @@ int _chdir(char **cmd, int er)
 	if (value == -1)
 	{
 		perror("hsh");
+		free_env(cmd);
 		return (-1);
 	}
 	else if (value != -1)
 	{
 		getcwd(cwd, sizeof(cwd));
-		setenv("OLDPWD", getenv("PWD"), 1);
-		setenv("PWD", cwd, 1);
+		_setenv_("OLDPWD", getenv("PWD"), 1);
+		_setenv_("PWD", cwd, 1);
 	}
 	return (0);
 }

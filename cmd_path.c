@@ -7,7 +7,7 @@
  */
 int path_cmd(char **cmd)
 {
-char *path, *value, *cmd_path;
+	char *path, *value, *cmd_path;
 	struct stat buf;
 
 	path = _getenv("PATH");

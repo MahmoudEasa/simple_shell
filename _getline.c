@@ -13,10 +13,7 @@ char *_getline()
 	char *buff = malloc(buffsize);
 
 	if (buff == NULL)
-	{
-		free(buff);
 		return (NULL);
-	}
 
 	for (i = 0; c != EOF && c != '\n'; i++)
 	{
@@ -64,5 +61,5 @@ void hashtag_handle(char *buff)
 				buff[i] = '\0';
 				break;
 			}
-	}
+		}
 }
