@@ -15,12 +15,12 @@ int handle_echo(char **cmd, int st)
 
 	if (_strncmp(cmd[1], "$?", 2) == 0)
 	{
-		print_number_in(st);
+		print_num_int(st);
 		PRINTER("\n");
 	}
 	else if (_strncmp(cmd[1], "$$", 2) == 0)
 	{
-		print_number(pid);
+		print_num(pid);
 		PRINTER("\n");
 	}
 	else if (_strncmp(cmd[1], "$PATH", 5) == 0)
@@ -31,7 +31,7 @@ int handle_echo(char **cmd, int st)
 		free(path);
 	}
 	else
-		return (print_echo(cmd));
+		return (_print_echo(cmd));
 
 	return (1);
 }

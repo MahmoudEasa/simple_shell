@@ -19,7 +19,7 @@ char *_strtok(char *string, const char *delim)
 		return (NULL);
 	while (t_s[i])
 	{
-		if (check_delim(t_s[i], delim) == 0)
+		if (_check_delim(t_s[i], delim) == 0)
 			break;
 		i++;
 	}
@@ -32,7 +32,7 @@ char *_strtok(char *string, const char *delim)
 	n_t = t_s;
 	while (n_t[i])
 	{
-		if (check_delim(n_t[i], delim) == 1)
+		if (_check_delim(n_t[i], delim) == 1)
 		break;
 		i++;
 	}

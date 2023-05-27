@@ -16,7 +16,7 @@ int his_dis(char **ch, int st)
 	(void)ch;
 	(void)st;
 
-	fp = open(name_file, O_RDONLY);
+	fp = fopen(name_file, "r");
 	if (!fp)
 	return (-1);
 	while ((getline(&line, &len, fp)) != -1)

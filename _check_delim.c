@@ -14,7 +14,7 @@ unsigned int _check_delim(char ch, const char *string)
 
 	while (string[j])
 	{
-	if (c == string[j])
+	if (ch == string[j])
 		return (1);
 	j++;
 	}

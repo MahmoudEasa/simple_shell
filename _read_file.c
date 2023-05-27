@@ -14,7 +14,7 @@ void _read_file(char *name, char **av)
 	char *line = NULL, **cmd;
 	size_t len = 0, count = 0, n = 0;
 
-	fp = open(name, O_RDONLY);
+	fp = fopen(name, "r");
 	if (!fp)
 		exit(EXIT_FAILURE);
 	while ((getline(&line, &len, fp)) != -1)

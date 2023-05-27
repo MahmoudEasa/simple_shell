@@ -9,10 +9,10 @@
  * Return: Void Pointer
  */
 
-void *fill_array(void *ptr, int el, unsigned int len)
+void *fill_array(void *a, int el, unsigned int len)
 {
 	unsigned int i = 0;
-	char *p = ptr;
+	char *p = a;
 
 	while (i < len)
 	{

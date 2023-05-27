@@ -14,7 +14,6 @@ int handle_buil(char **cmd, int er)
 		{"env", print_env},
 		{"help", print_help},
 		{"echo", handle_echo},
-		{"history", handle_history},
 		{NULL, NULL}
 		};
 	int i = 0;
