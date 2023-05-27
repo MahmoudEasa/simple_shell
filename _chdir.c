@@ -10,18 +10,17 @@
 
 int _chdir(char **cmd, int er)
 {
+	int value = -1;
 	char cwd[PATH_MAX];
-	int value;
-	(void)er;
 
-	value = -1;
 	if (cmd[1] == NULL)
 		value = chdir(getenv("HOME"));
 	else if (_strcmp(cmd[1], "-") == 0)
+	{
 		value = chdir(getenv("OLDPWD"));
+	}
 	else
 		value = chdir(cmd[1]);
-
 	if (value == -1)
 	{
 		perror("hsh");
