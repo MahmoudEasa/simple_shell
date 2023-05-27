@@ -19,6 +19,11 @@ void _read_file(char *filename, char **argv)
 	fp = fopen(filename, "r");
 	if (fp == NULL)
 	{
+		write(STDERR_FILENO, argv[0], _strlen(argv[0]));
+		write(STDERR_FILENO, ": 0: ", 5);
+		write(STDERR_FILENO, "Can't open ", 11);
+		write(STDERR_FILENO, argv[1], _strlen(argv[1]));
+		write(STDERR_FILENO, "\n", 1);
 		exit(EXIT_FAILURE);
 	}
 	while ((getline(&line, &len, fp)) != -1)
