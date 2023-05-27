@@ -16,7 +16,7 @@ int his_dis(char **ch, int st)
 	(void)ch;
 	(void)st;
 
-	fp = open(filename, O_RDONLY);
+	fp = open(name_file, O_RDONLY);
 	if (!fp)
 	return (-1);
 	while ((getline(&line, &len, fp)) != -1)
@@ -30,7 +30,7 @@ int his_dis(char **ch, int st)
 	}
 	if (line)
 		free(line);
-	close(fp);
+	fclose(fp);
 	return (0);
 }
 

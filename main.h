@@ -33,7 +33,7 @@ char *_itoa(unsigned int n);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
 char *_strchr(char *s, char c);
-int _strcmp(const char *s1, const char *s2, size_t len);
+int _strncmp(const char *s1, const char *s2, size_t len);
 char *_strdup(char *str);
 void free_env(char **env);
 void *fill_array(void *a, int el, unsigned int len);

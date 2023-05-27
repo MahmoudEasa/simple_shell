@@ -1,5 +1,5 @@
 /**
- * _strcmp - a function that compare between two strings
+ * _strncmp - a function that compare between two strings
  * @s1: first string
  * @s2: second string
  * @len: length of the second string
@@ -7,7 +7,7 @@
  * Return: on success return 0
 */
 
-int _strcmp(const char *s1, const char *s2, size_t len)
+int _strncmp(const char *s1, const char *s2, size_t len)
 {
 	int i = 0;
 

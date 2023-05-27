@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "main.h"
 
 /**
  * add_env - add array of enviroment variable

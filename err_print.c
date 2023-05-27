@@ -1,3 +1,4 @@
+#include "main.h"
 /**
  * err_print - print error when command fail
  * @line: command line

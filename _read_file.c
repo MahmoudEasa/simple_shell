@@ -21,7 +21,7 @@ void _read_file(char *name, char **av)
 	{
 		count++;
 		cmd = split_str(line);
-		if (_strcmp(cmd[0], "exit", 4) == 0)
+		if (_strncmp(cmd[0], "exit", 4) == 0)
 			exit_file(cmd, line, fp);
 		else if (check_buil(cmd) == 0)
 		{
@@ -36,7 +36,7 @@ void _read_file(char *name, char **av)
 	}
 	if (line)
 		free(line);
-	close(fp);
+	fclose(fp);
 	exit(0);
 }
 
