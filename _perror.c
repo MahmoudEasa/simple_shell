@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "main.h"
 
 /**
  *  _perror - print error

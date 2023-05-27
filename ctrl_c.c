@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "main.h"
 
 /**
  * ctrl_c - handle ^C

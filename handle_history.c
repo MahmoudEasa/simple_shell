@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "main.h"
 
 /**
  * handle_history - handle history
