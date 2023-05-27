@@ -18,7 +18,7 @@ void  exit_p(char **cmd, char *input, char **argv, int c)
 		free(cmd);
 		exit(EXIT_SUCCESS);
 	}
-	if (_strcmp(cmd[1], "-98") == 0)
+	else if (_strcmp(cmd[1], "-98") == 0)
 	{
 		free(input);
 		free(cmd);
