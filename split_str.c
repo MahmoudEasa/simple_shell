@@ -1,37 +1,53 @@
-#include "main.h"
+#include "shell.h"
 
 /**
  * split_str - split string
- * @input: string
+ * @str: string
+ * @tok: character
  *
- * Return: array
+ * Return: pointer to array of string
  */
 
-char **split_str(char *input)
+char **split_str(char *str, char *tok)
 {
-	int i, buffsize = BUFSIZE;
-	char **tokens;
-	char *token;
+	char **command = NULL, *arg, *strp;
+	int len, i;
 
-	if (input == NULL)
-		return (NULL);
-
-	tokens = malloc(sizeof(char *) * buffsize);
-
-	if (!tokens)
+	if (str && tok)
 	{
-		perror("hsh");
-		return (NULL);
-	}
+		strp = malloc(sizeof(char) * (_strlen(str) + 1));
+		_strcpy(strp, str);
+		arg = _strtok(strp, tok);
+		if (arg != NULL)
+			len = 1;
 
-	token = _strtok(input, "\n\t ");
-	for (i = 0; token; i++)
-	{
-		tokens[i] = token;
-		token = _strtok(NULL, "\n\t ");
-	}
-	tokens[i] = NULL;
+		while (((arg = _strtok(NULL, tok)) != NULL))
+			len++;
+		free(strp);
 
-	return (tokens);
+		arg = _strtok(str, tok);
+		if (arg)
+		{
+			command = malloc(sizeof(char *) * (len + 1));
+			if (!command)
+				exit(EXIT_FAILURE);
+			i = 0;
+			while (arg)
+			{
+				len = _strlen(arg);
+				command[i] = malloc(sizeof(char) * (len + 1));
+				if (!command[i])
+				{
+					_free(command);
+					exit(EXIT_FAILURE);
+				}
+				_strcpy(command[i], arg);
+				i++;
+				arg = _strtok(NULL, tok);
+			}
+			command[i] = NULL;
+		}
+	}
+	return (command);
 }
 

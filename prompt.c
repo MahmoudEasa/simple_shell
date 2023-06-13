@@ -1,11 +1,12 @@
-#include "main.h"
+#include "shell.h"
 
 /**
- * prompt - write '$' at the first of the line:wq
-*/
+ * prompt - display prompet in stdin
+ */
 
 void prompt(void)
 {
-	PRINTER("$ ");
+	if (isatty(STDIN_FILENO))
+		write(STDOUT_FILENO, "($) ", 4);
 }
 
