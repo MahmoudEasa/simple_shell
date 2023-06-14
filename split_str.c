@@ -1,5 +1,6 @@
 #include "shell.h"
 
+char *copy_str(char **strp, char *str, char **arg, char *tok);
 /**
  * split_str - split string
  * @str: string
@@ -15,13 +16,7 @@ char **split_str(char *str, char *tok)
 
 	if (str && tok)
 	{
-		strp = malloc(sizeof(char) * (_strlen(str) + 1));
-		if (!strp)
-			return (NULL);
-		_strcpy(strp, str);
-		arg = strtok(strp, tok);
-		if (!arg)
-			return (NULL);
+		copy_str(&strp, str, &arg, tok);
 		len = 1;
 		while (((arg = strtok(NULL, tok)) != NULL))
 			len++;
@@ -52,3 +47,28 @@ char **split_str(char *str, char *tok)
 	return (command);
 }
 
+/**
+ * copy_str - copy string
+ * @strp: pointer
+ * @str: string
+ * @arg: pointer
+ * @tok: string
+ *
+ * Return: NULL or arg
+ */
+
+char *copy_str(char **strp, char *str, char **arg, char *tok)
+{
+	*strp = malloc(sizeof(char) * (_strlen(str) + 1));
+	if (!(*strp))
+		return (NULL);
+	_strcpy(*strp, str);
+	*arg = strtok(*strp, tok);
+	if (!(*arg))
+	{
+		free(*strp);
+		return (NULL);
+	}
+
+	return (*arg);
+}
