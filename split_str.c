@@ -59,7 +59,7 @@ char **split_str(char *str, char *tok)
 
 char *copy_str(char **strp, char *str, char **arg, char *tok)
 {
-	*strp = malloc(sizeof(char) * (_strlen(str) + 1));
+	*strp = malloc(sizeof(char) * (_strlen(str) + 2));
 	if (!(*strp))
 		return (NULL);
 	_strcpy(*strp, str);
