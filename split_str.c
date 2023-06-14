@@ -16,16 +16,17 @@ char **split_str(char *str, char *tok)
 	if (str && tok)
 	{
 		strp = malloc(sizeof(char) * (_strlen(str) + 1));
+		if (!strp)
+			return (NULL);
 		_strcpy(strp, str);
-		arg = _strtok(strp, tok);
-		if (arg != NULL)
-			len = 1;
-
-		while (((arg = _strtok(NULL, tok)) != NULL))
+		arg = strtok(strp, tok);
+		if (!arg)
+			return (NULL);
+		len = 1;
+		while (((arg = strtok(NULL, tok)) != NULL))
 			len++;
 		free(strp);
-
-		arg = _strtok(str, tok);
+		arg = strtok(str, tok);
 		if (arg)
 		{
 			command = malloc(sizeof(char *) * (len + 1));
@@ -43,7 +44,7 @@ char **split_str(char *str, char *tok)
 				}
 				_strcpy(command[i], arg);
 				i++;
-				arg = _strtok(NULL, tok);
+				arg = strtok(NULL, tok);
 			}
 			command[i] = NULL;
 		}
