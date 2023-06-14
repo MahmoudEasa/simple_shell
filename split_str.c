@@ -16,7 +16,8 @@ char **split_str(char *str, char *tok)
 
 	if (str && tok)
 	{
-		copy_str(&strp, str, &arg, tok);
+		if (!copy_str(&strp, str, &arg, tok))
+			return (NULL);
 		len = 1;
 		while (((arg = strtok(NULL, tok)) != NULL))
 			len++;
@@ -59,7 +60,7 @@ char **split_str(char *str, char *tok)
 
 char *copy_str(char **strp, char *str, char **arg, char *tok)
 {
-	*strp = malloc(sizeof(char) * (_strlen(str) + 2));
+	*strp = malloc(sizeof(char) * (_strlen(str) + 1));
 	if (!(*strp))
 		return (NULL);
 	_strcpy(*strp, str);
