@@ -14,9 +14,11 @@ void _chdir(char **path)
 	if (getcwd(old_path, 1024) == NULL)
 		perror("getcwd");
 	if (!path[1])
-		str = check_path("HOME");
+		str = _getenv("HOME");
+		/* str = check_path("HOME"); */
 	else if (_strcmp_(path[1], "-") == 0 && _strlen(path[1]) == 1)
-		str = check_path("OLDPWD");
+		str = _getenv("OLDPWD");
+		/* str = check_path("OLDPWD"); */
 	if (!str)
 		return;
 	if (chdir(str) == -1)
