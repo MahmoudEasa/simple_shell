@@ -5,7 +5,7 @@
  * @path: a path that be passed
 */
 
-void _chdir(char **path)
+void _chdir(char **argv, char **path)
 {
 	char old_path[1024], new_path[1024], *str = NULL;
 
@@ -17,15 +17,20 @@ void _chdir(char **path)
 		str = _getenv("HOME");
 		/* str = check_path("HOME"); */
 	else if (_strcmp_(path[1], "-") == 0 && _strlen(path[1]) == 1)
+	{
 		str = _getenv("OLDPWD");
+		if (str)
+			printf("%s\n", str);
+	}
 		/* str = check_path("OLDPWD"); */
 	if (!str)
 		return;
 	if (chdir(str) == -1)
+		handle_error(argv[0], str);
+	else if (getcwd(new_path, 1024) == NULL)
 		perror("Error");
-	if (getcwd(new_path, 1024) == NULL)
-		perror("Error");
-	update_pwd(old_path, new_path);
+	else
+		update_pwd(old_path, new_path);
 }
 
 /**
@@ -68,9 +73,11 @@ void update_pwd(char *old_path, char *new_path)
  * @path: path passed
 */
 
-void handle_error(char *path)
+void handle_error(char *arg0, char *path)
 {
-	perror(path);
-	exit(EXIT_FAILURE);
+	write(STDERR_FILENO, arg0, _strlen(arg0));
+	write(STDERR_FILENO, ": 1: cd: can't cd to ", 21);
+	write(STDERR_FILENO, path, _strlen(path));
+	write(STDERR_FILENO, "\n", 1);
 }
 

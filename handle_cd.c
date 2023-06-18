@@ -10,6 +10,6 @@ void handle_cd(char **argv, char **args, int *status)
 	(void)argv;
 	(void)status;
 
-	_chdir(args);
+	_chdir(argv, args);
 }
 
