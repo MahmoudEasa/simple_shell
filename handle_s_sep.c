@@ -12,7 +12,8 @@
 
 int handle_s_sep(char *line, int line_len, char **argv, Built_fun *built)
 {
-	int found = 0, i, status = 0, arg2_0_len;
+	int found = 0, i, arg2_0_len;
+	static int status;
 	char **args = NULL, **args2 = NULL;
 
 	for (i = 0; i < line_len; i++)
