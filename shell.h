@@ -36,7 +36,8 @@ void handle_hash(char **args);
 void run_fork(char *arg0, char **args, int *status);
 void file_error(char *arg0, char *file);
 void handle_new_line(char *line, int line_len);
-int handle_s_sep(char *line, int line_len, char **argv, Built_fun *built);
+int handle_s_sep(char *line, int line_len, char **argv,
+		Built_fun *built, int *status);
 int check_builtin(char **argv, char **args, Built_fun *built, int *status);
 void check_command(char **argv, char **args, int *status);
 void exe(char *arg0, char **args);

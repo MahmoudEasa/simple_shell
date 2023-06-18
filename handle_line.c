@@ -18,8 +18,12 @@ void handle_line(char *line, char **argv, Built_fun *built)
 	line_len = _strlen(line);
 	handle_new_line(line, line_len);
 	/* handle_s_sep => ; */
-	if (handle_s_sep(line, line_len, argv, built) == 1)
+	if (handle_s_sep(line, line_len, argv, built, &status) == 1)
+	{
+		if (status)
+			exit(status % 10);
 		return;
+	}
 	/* handle_logic_sep => && || */
 	/*if (handle_logic_sep(line, line_len, argv, built) == 1)
 		return;*/
