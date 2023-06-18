@@ -15,14 +15,14 @@ void _chdir(char **argv, char **path)
 		perror("getcwd");
 	if (!path[1])
 		str = _getenv("HOME");
-		/* str = check_path("HOME"); */
 	else if (_strcmp_(path[1], "-") == 0 && _strlen(path[1]) == 1)
 	{
 		str = _getenv("OLDPWD");
 		if (str)
 			printf("%s\n", str);
+		else
+			printf("%s\n", _getenv("PWD"));
 	}
-		/* str = check_path("OLDPWD"); */
 	if (!str)
 		return;
 	if (chdir(str) == -1)
