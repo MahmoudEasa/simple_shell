@@ -8,7 +8,7 @@
  * Return: 1 if there is builtin function or 0 if not
  */
 
-int check_builtin(char **args, Built_fun *built)
+int check_builtin(char **argv, char **args, Built_fun *built, int *status)
 {
 	int arg0_len;
 	int cmd_len;
@@ -24,7 +24,7 @@ int check_builtin(char **args, Built_fun *built)
 				if (arg0_len != cmd_len)
 					return (0);
 
-				built->fun(args);
+				built->fun(argv, args, status);
 				return (1);
 			}
 			built++;

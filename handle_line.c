@@ -9,7 +9,8 @@
 
 void handle_line(char *line, char **argv, Built_fun *built)
 {
-	int line_len, status;
+	int line_len;
+	static int status;
 	char **args = NULL;
 
 	if (!line)
@@ -29,7 +30,7 @@ void handle_line(char *line, char **argv, Built_fun *built)
 		return;
 
 	handle_hash(args);
-	if (!check_builtin(args, built))
+	if (!check_builtin(argv, args, built, &status))
 		check_command(argv, args, &status);
 	if (args)
 		_free(args);

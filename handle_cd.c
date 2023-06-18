@@ -5,8 +5,11 @@
  * @args: array of line command
  */
 
-void handle_cd(char **args)
+void handle_cd(char **argv, char **args, int *status)
 {
+	(void)argv;
+	(void)status;
+
 	_chdir(args);
 }
 
