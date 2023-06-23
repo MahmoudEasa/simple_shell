@@ -12,6 +12,8 @@ void handle_unsetenv(char **argv, char **args, int *status)
 	(void)argv;
 	(void)status;
 
-	unsetenv(args[1]);
+	if (args[1])
+		if (unsetenv(args[1]) == -1)
+			perror("Error");
 }
 

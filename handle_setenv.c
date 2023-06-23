@@ -12,6 +12,8 @@ void handle_setenv(char **argv, char **args, int *status)
 	(void)argv;
 	(void)status;
 
-	setenv(args[1], args[2], 1);
+	if (args[1] && args[2])
+		if (setenv(args[1], args[2], 1) == -1)
+			perror("Error");
 }
 
