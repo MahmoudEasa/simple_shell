@@ -2,8 +2,10 @@
 
 /**
  * check_builtin - handle builtin functions
+ * @argv: array of arguments
  * @args: array of line command
  * @built: struct to handle builtin functions
+ * @status: integer
  *
  * Return: 1 if there is builtin function or 0 if not
  */

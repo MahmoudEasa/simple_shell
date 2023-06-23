@@ -6,6 +6,7 @@
  * @line_len: integer
  * @argv: array of arguments
  * @built: struct to handle builtin functions
+ * @status: integer
  *
  * Return: 1 if there is the ; separator or 0 if not
  */

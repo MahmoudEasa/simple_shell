@@ -1,14 +1,18 @@
-#include "main.h"
+#include "shell.h"
 
 /**
- * print_env - print environment
- * @env: array of aenvironment
+ * handle_env - print environment
+ * @argv: array
+ * @commands: array
+ * @status: integer
  */
 
-void print_env(char **env)
+void handle_env(char **argv, char **commands, int *status)
 {
 	char **envp = environ;
-	(void)env;
+	(void)argv;
+	(void)commands;
+	(void)status;
 
 	while (*envp)
 	{

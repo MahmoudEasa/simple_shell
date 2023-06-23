@@ -2,6 +2,7 @@
 
 /**
  * _chdir - a function that change directory
+ * @argv: array of arguments
  * @path: a path that be passed
 */
 
@@ -34,27 +35,6 @@ void _chdir(char **argv, char **path)
 }
 
 /**
- * check_path - a function that checks path that be passed
- * @name_var: variable name
- *
- * Return: return str
-*/
-
-char *check_path(char *name_var)
-{
-	char *str;
-
-	str = _getenv(name_var);
-	if (str == NULL)
-	{
-		write(STDERR_FILENO, "cd: ", 4);
-		write(STDERR_FILENO, name_var, _strlen(name_var));
-		write(STDERR_FILENO, " not sets\n", 10);
-	}
-	return (str);
-}
-
-/**
  * update_pwd - a function that update pwd
  * @old_path: first input
  * @new_path: second input
@@ -70,6 +50,7 @@ void update_pwd(char *old_path, char *new_path)
 
 /**
  * handle_error - a function that handle errors
+ * @arg0: program name
  * @path: path passed
 */
 

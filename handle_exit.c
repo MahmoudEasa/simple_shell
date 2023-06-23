@@ -2,7 +2,9 @@
 
 /**
  * handle_exit - handle exit command
+ * @argv: array of arguments
  * @args: array of line command
+ * @status: integer
  */
 
 void handle_exit(char **argv, char **args, int *status)

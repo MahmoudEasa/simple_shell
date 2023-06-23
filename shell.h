@@ -36,18 +36,23 @@ void handle_hash(char **args);
 void run_fork(char *arg0, char **args, int *status);
 void file_error(char *arg0, char *file);
 void handle_new_line(char *line, int line_len);
+
 int handle_s_sep(char *line, int line_len, char **argv,
 		Built_fun *built, int *status);
+
 int check_builtin(char **argv, char **args, Built_fun *built, int *status);
 void check_command(char **argv, char **args, int *status);
 void exe(char *arg0, char **args);
 void execute_from_stdin(char **argv, Built_fun *built);
 void ctrl_c(int signum);
+
 void handle_cd(char **argv, char **args, int *status);
 void handle_exit(char **argv, char **args, int *status);
 void handle_setenv(char **argv, char **args, int *status);
 void handle_unsetenv(char **argv, char **args, int *status);
 void handle_alias(char **argv, char **args, int *status);
+void handle_env(char **argv, char **commands, int *status);
+
 void write_err(char **argv, char **cmd);
 void _free(char **cmd);
 char *_getenv(char *name);
@@ -60,7 +65,6 @@ char *_strtok(char *str, char *delims);
 int _strcmp_(char *s1, char *s2);
 int _atoi(char *s);
 void _chdir(char **argv, char **path);
-char *check_path(char *name_var);
 void update_pwd(char *old_path, char *new_path);
 void handle_error(char *arg0, char *path);
 int _setenv_(char *var_name, char *new_value, int flag);

@@ -25,8 +25,7 @@ void handle_line(char *line, char **argv, Built_fun *built)
 		return;
 	}
 	/* handle_logic_sep => && || */
-	/*if (handle_logic_sep(line, line_len, argv, built) == 1)
-		return;*/
+	/* if (handle_logic_sep(line, line_len, argv, built) == 1) return; */
 
 	args = split_str(line, " \t");
 	free(line);
