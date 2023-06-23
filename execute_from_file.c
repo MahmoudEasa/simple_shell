@@ -16,7 +16,7 @@ void execute_from_file(char **argv, Built_fun *built)
 		if (fp == NULL)
 		{
 			file_error(argv[0], argv[1]);
-			exit(126);
+			exit(1);
 		}
 
 		while (getline(&line, &n, fp) != -1)
