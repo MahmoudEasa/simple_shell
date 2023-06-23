@@ -22,8 +22,6 @@ void execute_from_file(char **argv, Built_fun *built)
 		while (getline(&line, &n, fp) != -1)
 		{
 			handle_line(line, argv, built);
-			if (line)
-				free(line);
 			line = NULL;
 		}
 		if (line)
