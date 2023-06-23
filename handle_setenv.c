@@ -12,6 +12,6 @@ void handle_setenv(char **argv, char **args, int *status)
 	(void)argv;
 	(void)status;
 
-	printf("Hello %s\n", args[0]);
+	setenv(args[1], args[2], 1);
 }
 

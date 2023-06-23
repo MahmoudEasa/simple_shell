@@ -12,6 +12,6 @@ void handle_unsetenv(char **argv, char **args, int *status)
 	(void)argv;
 	(void)status;
 
-	printf("Hello %s\n", args[0]);
+	unsetenv(args[1]);
 }
 

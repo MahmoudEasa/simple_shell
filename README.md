@@ -116,7 +116,7 @@ The only difference is when you print an error, the name of the program must be 
 
 ## Your shell will be compiled this way:
 
-	`gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh`
+	gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 
 ## Testing
 
